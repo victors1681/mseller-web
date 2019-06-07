@@ -1,19 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import { TextField, Checkbox } from "utils/FormFields";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { Form, Formik, Field, FieldArray } from "formik";
+import { Form, Formik, Field } from "formik";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Roles from "components/Roles";
 import MainContext from "contexts/MainContext";
 
-function UserEdit() {
+const UserEdit = () => {
   const { roles, user } = useContext(MainContext);
 
   const rolesList = roles.content;
@@ -22,7 +20,7 @@ function UserEdit() {
 
   const userRole = user.userEdit.roles;
 
-  const onHandleSubmit = () => (values, { setSubmitting, setErrors }) => {
+  const onHandleSubmit = () => values => {
     //Perform Login
     console.error("VALUES FROM", values);
   };
@@ -36,7 +34,7 @@ function UserEdit() {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Dialog
         open
         onClose={() => user.onCloseUserEditModal()}
@@ -154,8 +152,8 @@ function UserEdit() {
           )}
         </Formik>
       </Dialog>
-    </div>
+    </React.Fragment>
   );
-}
+};
 
 export default UserEdit;

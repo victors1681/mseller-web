@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -20,10 +20,9 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  //const userContext = useContext(UserContext);
 
   return (
-    <div>
+    <React.Fragment>
       <Grid container spacing={2}>
         {/* Chart */}
         <Grid item xs={12} md={8} lg={9}>
@@ -38,7 +37,7 @@ const Dashboard = () => {
           <Paper className={classes.paper}>{/* <Orders /> */}</Paper>
         </Grid>
       </Grid>
-    </div>
+    </React.Fragment>
   );
 };
 export default Dashboard;

@@ -1,23 +1,22 @@
-import React, { useContext } from "react";
-import actionTypes from "./actions";
 import {
   getCurrentUserApi,
   getAllusersApi,
   getUserByIdApi
 } from "components/user/container/api";
+import actionTypes from "./actions";
 
-const performances = (dispatch, state) => {
-  const getCurrentUser = async payload => {
+const performances = dispatch => {
+  const getCurrentUser = async () => {
     dispatch(actionTypes.onGetCurrentUserRequest());
     try {
       const response = await getCurrentUserApi();
       dispatch(actionTypes.onGetCurrentUserSuccess(response.data));
     } catch (error) {
-      console.log(error);
+      dispatch(actionTypes.onGetCurrentUserFailed(error));
     }
   };
 
-  const getUsersList = async payload => {
+  const getUsersList = async () => {
     try {
       dispatch(actionTypes.onGetAllUserRequest());
       const response = await getAllusersApi();

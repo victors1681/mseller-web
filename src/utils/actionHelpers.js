@@ -12,3 +12,5 @@ export const createActions = (methodName, types) => ({
     payload
   })
 });
+
+export default createActions;

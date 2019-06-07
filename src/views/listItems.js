@@ -27,7 +27,7 @@ export const MainListItems = ({ history }) => {
   const classes = useStyles();
 
   return (
-    <div>
+    <React.Fragment>
       <ListItem button onClick={handleClick("/Dashboard")}>
         <ListItemIcon>
           <DashboardIcon />
@@ -62,7 +62,6 @@ export const MainListItems = ({ history }) => {
         <ListItem
           button
           className={classes.nested}
-          button
           onClick={handleClick("Users")}
         >
           <ListItemIcon>
@@ -71,12 +70,12 @@ export const MainListItems = ({ history }) => {
           <ListItemText primary="Users" />
         </ListItem>
       </List>
-    </div>
+    </React.Fragment>
   );
 };
 
 export const secondaryListItems = (
-  <div>
+  <React.Fragment>
     <ListSubheader inset>Saved reports</ListSubheader>
     <ListItem button>
       <ListItemIcon>
@@ -96,5 +95,5 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
     </ListItem>
-  </div>
+  </React.Fragment>
 );

@@ -6,7 +6,8 @@ const getResolve = () => ({
     containers: path.join(__dirname, "..", "src", "containers"),
     contexts: path.join(__dirname, "..", "src", "contexts"),
     common: path.join(__dirname, "..", "src", "common"),
-    utils: path.join(__dirname, "..", "src", "utils")
+    utils: path.join(__dirname, "..", "src", "utils"),
+    "react-dom": "@hot-loader/react-dom"
   },
   extensions: [".js"],
   modules: [

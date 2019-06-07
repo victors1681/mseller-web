@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import MainContext from "../contexts/MainContext";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -15,10 +14,10 @@ import Container from "@material-ui/core/Container";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import { MainListItems } from "./listItems";
 import Footer from "components/Footer";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Button from "@material-ui/core/Button";
+import { MainListItems } from "./listItems";
+import MainContext from "../contexts/MainContext";
 
 const drawerWidth = 240;
 
@@ -125,7 +124,6 @@ export default function Layout({ children, history, location }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const mainContext = useContext(MainContext);
 
   return (

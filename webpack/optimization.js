@@ -48,6 +48,7 @@ getChunks = () => ({
 });
 
 getOptimization = () => ({
+  usedExports: true,
   ...getChunks(),
   minimizer: [getTerserPlugin(), getOptimizationAssetsPlugin()]
 });

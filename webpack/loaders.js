@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { isDev } = require("./utils");
+const { isDev, isProd } = require("./utils");
+const path = require("path");
 
 const getBabelLoader = () => ({
   test: /\.(js)$/,
@@ -16,6 +17,29 @@ const getCssLoader = env => ({
   ]
 });
 
+const getEslintLoader = env => {
+  if (isProd(env)) {
+    return;
+  }
+
+  return {
+    enforce: "pre",
+    test: /\.js?$/,
+    exclude: [path.resolve(__dirname, "../node_modules")],
+    use: [
+      {
+        loader: "eslint-loader",
+        options: {
+          cache: true,
+          fix: true,
+          failOnWarning: true,
+          failOnError: true
+        }
+      }
+    ]
+  };
+};
+
 const getFileLoader = () => ({
   test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|)$/,
   loader: "url-loader"
@@ -31,7 +55,8 @@ const getLoaders = env =>
     getBabelLoader(),
     getCssLoader(env),
     getFileLoader(),
-    getXmlRawLoader()
+    getXmlRawLoader(),
+    getEslintLoader(env)
   ].filter(loader => loader);
 
 module.exports.getLoaders = getLoaders;

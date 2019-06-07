@@ -31,8 +31,8 @@ const MadeWithLove = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Built by  "}
-      <Link color="inherit" href="https://mobile-seller.com/">
-        MSeller
+      <Link component="a" color="inherit" href="https://ipsoft.com/">
+        IPsoft
       </Link>
     </Typography>
   );
@@ -68,7 +68,7 @@ export default function SignIn(props) {
 
   const mainContext = useContext(MainContext);
 
-  const onHandleSubmit = history => (values, { setSubmitting, setErrors }) => {
+  const onHandleSubmit = () => values => {
     //Perform Login
 
     mainContext.main.onLogin(values);
@@ -142,12 +142,12 @@ export default function SignIn(props) {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link component="a" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link component="a" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

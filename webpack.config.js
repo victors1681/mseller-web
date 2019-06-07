@@ -17,6 +17,10 @@ module.exports = env => {
     module: {
       rules: getLoaders(env)
     },
+    watchOptions: {
+      poll: true,
+      ignored: /node_modules/
+    },
     optimization: getOptimization()
   };
   if (isDev(env)) {

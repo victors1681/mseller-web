@@ -1,7 +1,7 @@
 module.exports = api => ({
   presets: [
     [
-      "@babel/preset-env",
+      "airbnb",
       {
         loose: true,
         modules: false,
@@ -26,6 +26,8 @@ module.exports = api => ({
     "@babel/plugin-proposal-export-namespace-from",
     "@babel/plugin-proposal-throw-expressions",
     "@babel/plugin-transform-spread",
-    "@babel/plugin-transform-regenerator"
+    "@babel/plugin-transform-regenerator",
+    "transform-custom-element-classes",
+    "@babel/plugin-transform-runtime"
   ]
 });

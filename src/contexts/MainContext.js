@@ -1,6 +1,5 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import MainReducer, { initialState } from "components/main/container/reducer";
-import combineReducers from "../utils/combineReducers";
 import UserReducer, {
   initialState as userInitialState
 } from "components/user/container/reducer";
@@ -10,6 +9,7 @@ import RolesReducer, {
 import mainPerformances from "components/main/container/performances";
 import userPerformances from "components/user/container/performances";
 import rolesPerformances from "components/roles/container/performances";
+import combineReducers from "../utils/combineReducers";
 
 const stateCombined = {
   main: initialState,
@@ -34,5 +34,5 @@ export const initMain = () => {
   };
 };
 
-export const MainContext = React.createContext(initialState);
+const MainContext = React.createContext(initialState);
 export default MainContext;

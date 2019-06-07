@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
-import actionTypes from "./actions";
 import { fetchData, loginApi } from "components/main/container/api";
 import { getCurrentUserApi } from "components/user/container/api";
 import { getRolesApi } from "components/roles/container/api";
 
 import userActions from "components/user/container/actions";
 import rolesActions from "components/roles/container/actions";
+import actionTypes from "./actions";
 
-const performances = (dispatch, state) => {
+const performances = dispatch => {
   const onInitMain = async payload => {
     dispatch(actionTypes.onMainRequest(payload));
     try {

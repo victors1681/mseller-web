@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -65,11 +65,9 @@ function intersection(a, b) {
   });
 }
 
-const Roles = ({ field, form: { isSubmitting, errors }, ...props }) => {
+const Roles = ({ field, _, ...props }) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
-
-  console.log(field);
 
   const [left, setLeft] = React.useState(not(props.roles, props.userRole));
   const [right, setRight] = React.useState(props.userRole);
@@ -78,7 +76,6 @@ const Roles = ({ field, form: { isSubmitting, errors }, ...props }) => {
   const rightChecked = intersection(checked, right);
 
   const handleToggle = value => () => {
-    console.log(value);
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -117,8 +114,12 @@ const Roles = ({ field, form: { isSubmitting, errors }, ...props }) => {
   };
 
   const customList = (items, column) => (
-    <div>
-      <Typography variant="subtitle1" className={classes.roleHeader}>
+    <React.Fragment>
+      <Typography
+        component="span"
+        variant="subtitle1"
+        className={classes.roleHeader}
+      >
         {column === "left" ? "Available" : "Assigned"}
       </Typography>
       <Paper className={classes.paper}>
@@ -144,13 +145,15 @@ const Roles = ({ field, form: { isSubmitting, errors }, ...props }) => {
           <ListItem />
         </List>
       </Paper>
-    </div>
+    </React.Fragment>
   );
 
   return (
-    <div>
+    <React.Fragment>
       <Box component="div" m={1}>
-        <Typography variant="h6">Roles</Typography>
+        <Typography component="span" variant="h6">
+          Roles
+        </Typography>
         <Divider />
       </Box>
       <Grid
@@ -207,7 +210,7 @@ const Roles = ({ field, form: { isSubmitting, errors }, ...props }) => {
         </Grid>
         <Grid item>{customList(right, "right")}</Grid>
       </Grid>
-    </div>
+    </React.Fragment>
   );
 };
 

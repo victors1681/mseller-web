@@ -5,7 +5,6 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import { hot } from "react-hot-loader";
 import MainContext from "contexts/MainContext";
 import NotFound from "components/NotFound";
 import Login from "views/Login";
@@ -78,4 +77,4 @@ const Routes = () => {
   );
 };
 
-export default hot(module)(Routes);
+export default Routes;
