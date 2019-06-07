@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,7 +7,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import MainContext from "../../contexts/MainContext";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,11 +29,9 @@ const useStyles = makeStyles(theme => ({
 const PostTable = () => {
   const classes = useStyles();
 
-  const mindContext = useContext(MainContext);
-
   return (
     <Paper className={classes.root}>
-      {mindContext.request && <CircularProgress className={classes.progress} />}
+      {<CircularProgress className={classes.progress} />}
       <Table className={classes.table}>
         <TableHead>
           <TableRow>

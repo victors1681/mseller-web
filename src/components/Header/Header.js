@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import MainContext from "contexts/MainContext";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,7 +22,6 @@ const useStyles = makeStyles(() => ({
 
 const Header = ({ title = "" }) => {
   const classes = useStyles();
-  const mainContext = useContext(MainContext);
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default" className={classes.appBar}>
@@ -31,12 +29,7 @@ const Header = ({ title = "" }) => {
           <Typography variant="h6" color="inherit" className={classes.title}>
             {title}
           </Typography>
-          <Fab
-            size="small"
-            color="primary"
-            aria-label="Add"
-            onClick={() => mainContext.user.onNewUserModal()}
-          >
+          <Fab size="small" color="primary" aria-label="Add">
             <AddIcon />
           </Fab>
         </Toolbar>

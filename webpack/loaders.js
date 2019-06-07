@@ -5,7 +5,7 @@ const path = require("path");
 const getBabelLoader = () => ({
   test: /\.(js)$/,
   exclude: /node_modules/,
-  use: ["cache-loader", "babel-loader?cacheDirectory", "thread-loader"]
+  use: ["babel-loader"]
 });
 
 const getCssLoader = env => ({

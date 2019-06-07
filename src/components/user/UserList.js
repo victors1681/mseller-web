@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from "react";
-import MainContext from "contexts/MainContext";
+import React, { useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 
 function UserList() {
-  const { user } = useContext(MainContext);
+  const { user } = { user: "" };
 
   useEffect(() => {
     user.getUsersList();

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import { TextField, Checkbox } from "utils/FormFields";
 import Dialog from "@material-ui/core/Dialog";
@@ -9,10 +9,9 @@ import { Form, Formik, Field } from "formik";
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Roles from "components/Roles";
-import MainContext from "contexts/MainContext";
 
 const UserEdit = () => {
-  const { roles, user } = useContext(MainContext);
+  const { roles, user } = { user: "", roles: [] };
 
   const rolesList = roles.content;
 

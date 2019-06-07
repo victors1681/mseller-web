@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect
 } from "react-router-dom";
-import MainContext from "contexts/MainContext";
 import NotFound from "components/NotFound";
 import Login from "views/Login";
 import Layout from "views/Layout";
@@ -36,9 +35,7 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
 };
 
 const Routes = () => {
-  const mainContext = useContext(MainContext);
-
-  const isAuthenticated = mainContext.main.isAuthenticated;
+  const isAuthenticated = false;
 
   return (
     <Router>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,7 +17,6 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import Footer from "components/Footer";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { MainListItems } from "./listItems";
-import MainContext from "../contexts/MainContext";
 
 const drawerWidth = 240;
 
@@ -124,7 +123,6 @@ export default function Layout({ children, history, location }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const mainContext = useContext(MainContext);
 
   return (
     <div className={classes.root}>
@@ -182,7 +180,7 @@ export default function Layout({ children, history, location }) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        {mainContext.request && <LinearProgress />}
+        {<LinearProgress />}
         <Container maxWidth="xl" className={classes.container}>
           {children}
         </Container>

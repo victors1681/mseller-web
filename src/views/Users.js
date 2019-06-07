@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import Header from "components/Header";
 import UserEdit from "components/user/UserEdit";
 import UserList from "components/user/UserList";
-import MainContext from "contexts/MainContext";
 
 function Users() {
-  const { user } = useContext(MainContext);
+  const { user } = { user: "" };
 
   return (
     <React.Fragment>

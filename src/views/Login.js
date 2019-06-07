@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,7 +12,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Form, Formik, Field } from "formik";
-import MainContext from "contexts/MainContext";
 import { TextField } from "utils/FormFields";
 import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
@@ -65,18 +64,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn(props) {
   const classes = useStyles();
-
-  const mainContext = useContext(MainContext);
+  const isAuthenticated = false;
 
   const onHandleSubmit = () => values => {
     //Perform Login
-
-    mainContext.main.onLogin(values);
+    console.log(values);
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      {mainContext.main.isAuthenticated && (
+      {isAuthenticated && (
         <Redirect
           to={{
             pathname: "/Dashboard",
