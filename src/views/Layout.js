@@ -168,7 +168,7 @@ export default function Layout({ children, history, location }) {
         open={open}
       >
         <div className={classes.toolbarIcon}>
-          <div className={classes.brandTitle}>Conductor</div>
+          <div className={classes.brandTitle}>MSeller</div>
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
           </IconButton>

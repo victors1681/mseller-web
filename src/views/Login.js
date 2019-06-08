@@ -11,10 +11,14 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import green from "@material-ui/core/colors/green";
 import { Form, Formik, Field } from "formik";
 import { TextField } from "utils/FormFields";
 import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
+import { graphql, compose } from "react-apollo";
+import { gql } from "apollo-boost";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -30,8 +34,8 @@ const MadeWithLove = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Built by  "}
-      <Link component="a" color="inherit" href="https://ipsoft.com/">
-        IPsoft
+      <Link component="a" color="inherit" href="https://mobile-seller.com/">
+        MSeller
       </Link>
     </Typography>
   );
@@ -59,16 +63,36 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  wrapper: {
+    margin: theme.spacing(1),
+    position: "relative"
+  },
+  buttonSuccess: {
+    backgroundColor: green[500],
+    "&:hover": {
+      backgroundColor: green[700]
+    }
   }
 }));
 
-export default function SignIn(props) {
+const SignIn = ({ loginUser, location, history }) => {
   const classes = useStyles();
   const isAuthenticated = false;
 
   const onHandleSubmit = () => values => {
     //Perform Login
-    console.log(values);
+
+    loginUser({
+      variables: values
+    })
+      .then(response => {
+        console.log("Token", response.data.login);
+        history.push("/Dashboard");
+      })
+      .catch(error => {
+        console.log("there was an error sending the query", error);
+      });
   };
 
   return (
@@ -77,7 +101,7 @@ export default function SignIn(props) {
         <Redirect
           to={{
             pathname: "/Dashboard",
-            state: { from: props.location }
+            state: { from: location }
           }}
         />
       )}
@@ -90,16 +114,12 @@ export default function SignIn(props) {
           Sign in
         </Typography>
         <Formik
-          onSubmit={onHandleSubmit(history)}
+          onSubmit={onHandleSubmit()}
           validationSchema={LoginSchema}
           initialValues={{ email: "", password: "" }}
         >
-          {props => (
-            <Form
-              className={classes.form}
-              noValidate
-              onSubmit={props.handleSubmit}
-            >
+          {() => (
+            <Form className={classes.form} noValidate>
               <Field
                 variant="outlined"
                 margin="normal"
@@ -128,15 +148,26 @@ export default function SignIn(props) {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Sign In
-              </Button>
+
+              <div className={classes.wrapper}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  load
+                  className={classes.submit}
+                  disabled={loginUser.loading}
+                >
+                  Sign In
+                </Button>
+                {loginUser.loading && (
+                  <CircularProgress
+                    size={24}
+                    className={classes.buttonProgress}
+                  />
+                )}
+              </div>
               <Grid container>
                 <Grid item xs>
                   <Link component="a" variant="body2">
@@ -158,4 +189,11 @@ export default function SignIn(props) {
       </Box>
     </Container>
   );
-}
+};
+
+const LOGIN_USER = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password)
+  }
+`;
+export default compose(graphql(LOGIN_USER, { name: "loginUser" }))(SignIn);

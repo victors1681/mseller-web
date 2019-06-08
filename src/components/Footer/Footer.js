@@ -6,8 +6,8 @@ const Footer = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Built by  "}
-      <Link color="inherit" href="https://ipsoft.com/">
-        IPsoft
+      <Link color="inherit" href="https://mobile-seller.com/">
+        IT Soluclick
       </Link>
     </Typography>
   );

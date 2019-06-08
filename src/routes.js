@@ -6,6 +6,8 @@ import {
   Redirect
 } from "react-router-dom";
 import NotFound from "components/NotFound";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 import Login from "views/Login";
 import Layout from "views/Layout";
 import Logs from "views/Logs";
@@ -33,44 +35,52 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
     />
   );
 };
-
+export const IS_LOGGED_IN = gql`
+  query IsUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
 const Routes = () => {
-  const isAuthenticated = false;
-
   return (
-    <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <PrivateRoute
-          key="Dashboard"
-          path="/Dashboard"
-          component={Dashboard}
-          isAuthenticated={isAuthenticated}
-          exact
-        />
-        <PrivateRoute
-          key="Dashboard"
-          path="/"
-          component={Dashboard}
-          exact
-          isAuthenticated={isAuthenticated}
-        />
-        <PrivateRoute
-          key="Logs"
-          path="/Logs"
-          component={Logs}
-          isAuthenticated={isAuthenticated}
-        />
-        <PrivateRoute
-          key="Users"
-          path="/Users"
-          component={Users}
-          isAuthenticated={isAuthenticated}
-        />
-        {/* <Route path="/Users" component={Users} /> */}
-        <PrivateRoute component={NotFound} />
-      </Switch>
-    </Router>
+    <Query query={IS_LOGGED_IN}>
+      {({ data }) => {
+        return (
+          <Router>
+            <Switch>
+              <Route path="/login" component={Login} />
+              <PrivateRoute
+                key="Dashboard"
+                path="/Dashboard"
+                component={Dashboard}
+                isAuthenticated={data}
+                exact
+              />
+              <PrivateRoute
+                key="Dashboard"
+                path="/"
+                component={Dashboard}
+                exact
+                isAuthenticated={data}
+              />
+              <PrivateRoute
+                key="Logs"
+                path="/Logs"
+                component={Logs}
+                isAuthenticated={data}
+              />
+              <PrivateRoute
+                key="Users"
+                path="/Users"
+                component={Users}
+                isAuthenticated={data}
+              />
+              {/* <Route path="/Users" component={Users} /> */}
+              <PrivateRoute component={NotFound} />
+            </Switch>
+          </Router>
+        );
+      }}
+    </Query>
   );
 };
 
