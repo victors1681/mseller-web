@@ -2,25 +2,54 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { TextField, Checkbox } from "utils/FormFields";
 import Dialog from "@material-ui/core/Dialog";
+import { compose, graphql } from "react-apollo";
+import { makeStyles } from "@material-ui/core/styles";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import GET_ALL_ROLES from "components/Roles/schema/roles_all.graphql";
 import { Form, Formik, Field } from "formik";
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Roles from "components/Roles";
+import autoComplete from "utils/autoComplete";
+import GET_BUSINESS_LIST from "components/Business/schema/business_all.graphql";
+import USER_BY_ID from "./schema/users_list.graphql";
+import ADD_NEW_USER from "./schema/user_add.graphql";
 
-const UserEdit = () => {
-  const { roles, user } = { user: "", roles: [] };
+const useStyles = makeStyles(theme => ({
+  progress: {
+    margin: theme.spacing(2)
+  },
+  paddingBottom: {
+    paddingBottom: "0px"
+  }
+}));
 
-  const rolesList = roles.content;
+const UserEdit = ({
+  closeModal,
+  edit,
+  data,
+  addNewUser,
+  rolesData,
+  businessData
+}) => {
+  const classes = useStyles();
+  const dataUser = data && data.users && data.users[0];
 
-  const isEditingMode = !!user.ui.editModal.id !== "new";
+  const rolesList = rolesData.roles;
+  const userRole = dataUser && dataUser.roles;
 
-  const userRole = user.userEdit.roles;
+  const handleChangePassword = () => {};
 
   const onHandleSubmit = () => values => {
     //Perform Login
+    if (edit) {
+      console.log("update user", edit);
+    } else {
+      addNewUser();
+    }
     console.error("VALUES FROM", values);
   };
 
@@ -32,17 +61,25 @@ const UserEdit = () => {
     return errors;
   };
 
+  if (data.loading) {
+    return <CircularProgress className={classes.progress} />;
+  }
+
   return (
     <React.Fragment>
       <Dialog
         open
-        onClose={() => user.onCloseUserEditModal()}
+        onClose={() => closeModal()}
         aria-labelledby="form-dialog-title"
       >
         <Formik
           onSubmit={onHandleSubmit(history)}
           validate={onValidate}
-          initialValues={user.userEdit}
+          initialValues={{
+            ...dataUser,
+            business: dataUser.business["_id"],
+            status: (edit && dataUser.status === "A") || (!edit && true)
+          }}
         >
           {props => (
             <Form noValidate onSubmit={props.handleSubmit}>
@@ -52,11 +89,11 @@ const UserEdit = () => {
                   <Grid item xs={12} sm={6}>
                     <Field
                       required
-                      id="firstName"
+                      id="fistName"
                       name="firstName"
-                      label="First name"
+                      label="First Name"
                       fullWidth
-                      autoComplete="fname"
+                      autoComplete="off"
                       component={TextField}
                     />
                   </Grid>
@@ -65,36 +102,43 @@ const UserEdit = () => {
                       required
                       id="lastName"
                       name="lastName"
-                      label="Last name"
+                      label="Last Name"
                       fullWidth
                       autoComplete="lname"
                       component={TextField}
                     />
                   </Grid>
-
                   <Grid item xs={12} sm={6}>
-                    <Field
-                      required
-                      id="username"
-                      name="username"
-                      label="Username"
-                      fullWidth
-                      autoComplete="fuser"
-                      component={TextField}
-                      disabled={isEditingMode}
-                    />
+                    {edit ? (
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleChangePassword}
+                      >
+                        Update Password
+                      </Button>
+                    ) : (
+                      <Field
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        component={TextField}
+                      />
+                    )}
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Field
                       required
+                      id="sellerCode"
+                      name="sellerCode"
+                      label="Seller Code"
                       fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
+                      autoComplete="off"
                       component={TextField}
-                      disabled={isEditingMode}
                     />
                   </Grid>
 
@@ -107,6 +151,18 @@ const UserEdit = () => {
                       fullWidth
                       autoComplete="email"
                       component={TextField}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Field
+                      required
+                      id="business"
+                      name="business"
+                      label="Business"
+                      fullWidth
+                      autoComplete="off"
+                      options={businessData.business}
+                      component={autoComplete}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -125,11 +181,7 @@ const UserEdit = () => {
                   <Grid item xs={12}>
                     <FormControlLabel
                       control={
-                        <Field
-                          id="enabled"
-                          name="enabled"
-                          component={Checkbox}
-                        />
+                        <Field id="status" name="status" component={Checkbox} />
                       }
                       label="Active"
                     />
@@ -137,13 +189,8 @@ const UserEdit = () => {
                 </Grid>
               </DialogContent>
               <DialogActions>
-                <Button
-                  onClick={() => user.onCloseUserEditModal()}
-                  color="primary"
-                >
-                  Cancel
-                </Button>
-                <Button color="primary" type="submit">
+                <Button onClick={() => closeModal()}>Cancel</Button>
+                <Button color="primary" variant="contained" type="submit">
                   Create
                 </Button>
               </DialogActions>
@@ -155,4 +202,11 @@ const UserEdit = () => {
   );
 };
 
-export default UserEdit;
+export default compose(
+  graphql(USER_BY_ID, {
+    options: props => ({ variables: { id: props.edit } })
+  }),
+  graphql(GET_BUSINESS_LIST, { name: "businessData" }),
+  graphql(GET_ALL_ROLES, { name: "rolesData" }),
+  graphql(ADD_NEW_USER, { name: "addNewUser" })
+)(UserEdit);

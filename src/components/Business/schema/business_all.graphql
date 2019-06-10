@@ -1,0 +1,17 @@
+query Business {
+  business {
+    _id
+    name
+    address
+    phone
+    plan {
+      _id
+      name
+      price
+      userMobile
+      userDesktop
+    }
+    dbName
+    status
+  }
+}

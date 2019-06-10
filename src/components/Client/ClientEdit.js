@@ -338,7 +338,7 @@ const ClientEdit = ({ closeModal, edit, data, addNewClient, setErrors }) => {
         maxWidth="md"
       >
         <Formik
-          onSubmit={onHandleSubmit(history)}
+          onSubmit={onHandleSubmit()}
           validationSchema={ClientSchema}
           initialValues={{
             ...data.client,

@@ -1,0 +1,27 @@
+mutation RegisterUser(
+  $email: String
+  $password: String
+  $firstName: String
+  $lastName: String
+  $phone: String
+  $sellerCode: String
+  $business: String
+  $roles: [String]
+  $mode: String
+) {
+  register(
+    userInput: {
+      email: $email
+      password: $password
+      firstName: $firstName
+      lastName: $lastName
+      phone: $phon3e
+      sellerCode: $sellerCode
+      business: $business
+      roles: $roles
+      mode: $mode
+    }
+  ) {
+    _id
+  }
+}

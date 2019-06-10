@@ -1,0 +1,21 @@
+query User($id: ID) {
+  users(id: $id) {
+    _id
+    firstName
+    lastName
+    email
+    sellerCode
+    business {
+      _id
+      name
+      country
+      dbName
+    }
+    roles {
+      _id
+      name
+    }
+    mode
+    status
+  }
+}
