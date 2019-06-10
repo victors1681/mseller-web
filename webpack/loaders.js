@@ -8,6 +8,12 @@ const getBabelLoader = () => ({
   use: ["babel-loader"]
 });
 
+const getGraphQLLoaader = () => ({
+  test: /\.(graphql|gql)$/,
+  exclude: /node_modules/,
+  loader: "graphql-tag/loader"
+});
+
 const getCssLoader = env => ({
   test: /\.(sc|c)ss$/,
   use: [
@@ -56,7 +62,8 @@ const getLoaders = env =>
     getCssLoader(env),
     getFileLoader(),
     getXmlRawLoader(),
-    getEslintLoader(env)
+    getEslintLoader(env),
+    getGraphQLLoaader()
   ].filter(loader => loader);
 
 module.exports.getLoaders = getLoaders;

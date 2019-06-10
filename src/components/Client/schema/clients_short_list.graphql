@@ -1,0 +1,12 @@
+query Clients {
+  clients {
+    code
+    name
+    sellerCode
+    sellerName
+    city
+    status
+    RNC
+    email
+  }
+}

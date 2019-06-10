@@ -1,0 +1,24 @@
+query Client($code: String) {
+  client(code: $code) {
+    code
+    name
+    address
+    phone
+    sellerCode
+    sellerName
+    city
+    balance
+    creditLimit
+    status
+    RNC
+    email
+    latitude
+    longitude
+    field1
+    field2
+    field3
+    field4
+    field5
+    field6
+  }
+}

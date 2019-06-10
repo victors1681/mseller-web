@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Header = ({ title = "" }) => {
+const Header = ({ title = "", handleNew }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -29,7 +29,12 @@ const Header = ({ title = "" }) => {
           <Typography variant="h6" color="inherit" className={classes.title}>
             {title}
           </Typography>
-          <Fab size="small" color="primary" aria-label="Add">
+          <Fab
+            size="small"
+            color="primary"
+            aria-label="Add"
+            onClick={handleNew}
+          >
             <AddIcon />
           </Fab>
         </Toolbar>

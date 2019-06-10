@@ -87,7 +87,8 @@ const SignIn = ({ loginUser, location, history }) => {
       variables: values
     })
       .then(response => {
-        console.log("Token", response.data.login);
+        localStorage.setItem("token", response.data.login);
+        //client.writeData({ data: { isLoggedIn: true } });
         history.push("/Dashboard");
       })
       .catch(error => {

@@ -1,0 +1,49 @@
+mutation Add_new_client(
+  $code: String!
+  $name: String!
+  $address: String
+  $phone: String
+  $sellerCode: String
+  $sellerName: String
+  $city: String
+  $state: String
+  $country: String
+  $zipCode: String
+  $creditLimit: Float
+  $status: String
+  $RNC: String
+  $email: String
+  $field1: String
+  $field2: String
+  $field3: String
+  $field4: Float
+  $field5: Float
+  $field6: Float
+) {
+  addClient(
+    client: {
+      code: $code
+      name: $name
+      address: $address
+      phone: $phone
+      sellerCode: $sellerCode
+      sellerName: $sellerName
+      city: $city
+      state: $state
+      country: $country
+      zipCode: $zipCode
+      creditLimit: $creditLimit
+      status: $status
+      RNC: $RNC
+      email: $email
+      field1: $field1
+      field2: $field2
+      field3: $field3
+      field4: $field4
+      field5: $field5
+      field6: $field6
+    }
+  ) {
+    name
+  }
+}

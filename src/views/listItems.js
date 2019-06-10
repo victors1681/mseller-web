@@ -40,11 +40,11 @@ export const MainListItems = ({ history }) => {
         </ListItemIcon>
         <ListItemText primary="Clients" />
       </ListItem>
-      <ListItem button onClick={handleClick("Instances")}>
+      <ListItem button onClick={handleClick("Products")}>
         <ListItemIcon>
           <MemoryIcon />
         </ListItemIcon>
-        <ListItemText primary="Instances" />
+        <ListItemText primary="products" />
       </ListItem>
       <ListItem button onClick={handleClick("Logs")}>
         <ListItemIcon>
