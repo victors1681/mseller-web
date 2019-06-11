@@ -189,7 +189,7 @@ const AutoComplete = ({ field, form: { isSubmitting, errors }, ...props }) => {
   const theme = useTheme();
 
   let initialValue = {};
-  if (field.value) {
+  if (field.value && props.options) {
     const { name, _id } = props.options.find(f => f["_id"] === field.value);
     initialValue.label = name;
     initialValue.value = _id;

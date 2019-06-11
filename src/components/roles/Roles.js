@@ -6,11 +6,14 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
+import ARightIcon from "@material-ui/icons/ChevronRight";
+import ALeftIcon from "@material-ui/icons/ChevronLeft";
+import IconButton from "@material-ui/core/IconButton";
+import DoubleRight from "@material-ui/icons/FastForward";
+import DoubleLeft from "@material-ui/icons/FastRewind";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,14 +21,16 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     width: 200,
-    height: 230,
+    minHeight: 350,
     overflow: "auto"
   },
   button: {
-    margin: theme.spacing(0.5, 0)
+    margin: theme.spacing(0.5, 0),
+    width: "20px"
   },
   roleHeader: {
-    margin: "10px"
+    margin: "10px",
+    marginBottom: "15px"
   },
   margin: {
     margin: "10px"
@@ -69,8 +74,10 @@ const Roles = ({ field, _, ...props }) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
 
-  const [left, setLeft] = React.useState(not(props.roles, props.userRole));
-  const [right, setRight] = React.useState(props.userRole);
+  const [left, setLeft] = React.useState(
+    not(props.roles || [], props.userRole || [])
+  );
+  const [right, setRight] = React.useState(props.userRole || []);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -120,7 +127,7 @@ const Roles = ({ field, _, ...props }) => {
         variant="subtitle1"
         className={classes.roleHeader}
       >
-        {column === "left" ? "Available" : "Assigned"}
+        {column === "left" ? "Available Role" : "Assigned Role"}
       </Typography>
       <Paper className={classes.paper}>
         <List dense>
@@ -150,12 +157,7 @@ const Roles = ({ field, _, ...props }) => {
 
   return (
     <React.Fragment>
-      <Box component="div" m={1}>
-        <Typography component="span" variant="h6">
-          Roles
-        </Typography>
-        <Divider />
-      </Box>
+      <Box component="div" m={1} />
       <Grid
         container
         spacing={2}
@@ -166,46 +168,45 @@ const Roles = ({ field, _, ...props }) => {
         <Grid item>{customList(left, "left")}</Grid>
         <Grid item>
           <Grid container direction="column" alignItems="center">
-            <Button
-              variant="outlined"
+            <IconButton
+              className={classes.margin}
               size="small"
-              className={classes.button}
               onClick={handleAllRight}
               disabled={left.length === 0}
               aria-label="move all right"
             >
-              ≫
-            </Button>
-            <Button
-              variant="outlined"
+              <DoubleRight fontSize="inherit" />
+            </IconButton>
+
+            <IconButton
+              className={classes.margin}
               size="small"
-              className={classes.button}
               onClick={handleCheckedRight}
               disabled={leftChecked.length === 0}
               aria-label="move selected right"
             >
-              &gt;
-            </Button>
-            <Button
-              variant="outlined"
+              <ARightIcon fontSize="inherit" />
+            </IconButton>
+
+            <IconButton
+              className={classes.margin}
               size="small"
-              className={classes.button}
               onClick={handleCheckedLeft}
               disabled={rightChecked.length === 0}
               aria-label="move selected left"
             >
-              &lt;
-            </Button>
-            <Button
-              variant="outlined"
+              <ALeftIcon fontSize="inherit" />
+            </IconButton>
+
+            <IconButton
+              className={classes.margin}
               size="small"
-              className={classes.button}
               onClick={handleAllLeft}
               disabled={right.length === 0}
               aria-label="move all left"
             >
-              ≪
-            </Button>
+              <DoubleLeft fontSize="inherit" />
+            </IconButton>
           </Grid>
         </Grid>
         <Grid item>{customList(right, "right")}</Grid>

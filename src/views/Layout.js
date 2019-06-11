@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
   toolbar: {
     paddingRight: 2, // keep right padding when drawer closed
-    background: "linear-gradient(45deg, #43C7FF 30%, #0993ce 90%)",
+    background: "linear-gradient(45deg, #75ADF6 30%, #52A2FF 90%)",
     color: "white"
   },
   toolbarIcon: {

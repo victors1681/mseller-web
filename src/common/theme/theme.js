@@ -2,7 +2,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: "#43C7FF", contrastText: "#fff" }, // Purple and green play nicely together.
+    primary: { main: "#52A2FF", contrastText: "#fff" }, // Purple and green play nicely together.
 
     secondary: { main: "#295E8A" }
   },

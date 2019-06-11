@@ -1,5 +1,5 @@
-query Users($id: ID) {
-  users(id: $id) {
+query User($id: ID) {
+  user(id: $id) {
     _id
     firstName
     lastName
