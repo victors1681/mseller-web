@@ -51,7 +51,7 @@ const UserEdit = ({
     if (edit) {
       console.log("update user", edit);
     } else {
-      addNewUser();
+      addNewUser(values);
     }
     console.error("VALUES FROM", values);
   };

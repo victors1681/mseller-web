@@ -183,8 +183,11 @@ const components = {
   SingleValue,
   ValueContainer
 };
-
-const AutoComplete = ({ field, form: { isSubmitting, errors }, ...props }) => {
+const AutoComplete = ({
+  field,
+  form: { setFieldValue, isSubmitting, errors },
+  ...props
+}) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -196,8 +199,9 @@ const AutoComplete = ({ field, form: { isSubmitting, errors }, ...props }) => {
   }
   const [single, setSingle] = React.useState(initialValue);
 
-  function handleChangeSingle(value) {
+  function handleChangeSingle(value, field) {
     setSingle(value);
+    setFieldValue(field.name, value.value);
   }
 
   const selectStyles = {

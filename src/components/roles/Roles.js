@@ -70,7 +70,7 @@ function intersection(a, b) {
   });
 }
 
-const Roles = ({ field, _, ...props }) => {
+const Roles = ({ field, form: { setFieldValue }, ...props }) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
 
@@ -101,7 +101,10 @@ const Roles = ({ field, _, ...props }) => {
   };
 
   const handleCheckedRight = () => {
-    setRight(right.concat(leftChecked));
+    const currentRole = right.concat(leftChecked);
+    setRight(currentRole);
+    setFieldValue(field.name, currentRole.map(r => r["_id"]));
+
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
     // field.value = not(left, leftChecked);
