@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import { TextField, Checkbox } from "utils/FormFields";
+import { TextField, Checkbox, SelectField } from "utils/FormFields";
 import Dialog from "@material-ui/core/Dialog";
 import { compose, graphql } from "react-apollo";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,6 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Roles from "components/Roles";
 import autoComplete from "utils/autoComplete";
+import { showGraphQLError, showSuccess } from "utils/notifications";
 import GET_BUSINESS_LIST from "components/Business/schema/business_all.graphql";
 import USER_BY_ID from "./schema/user_edit.graphql";
 import ADD_NEW_USER from "./schema/user_add.graphql";
@@ -36,7 +37,8 @@ const UserEdit = ({
   data,
   addNewUser,
   rolesData,
-  businessData
+  businessData,
+  setErrors
 }) => {
   const classes = useStyles();
   const dataUser = data && data.user;
@@ -46,12 +48,29 @@ const UserEdit = ({
 
   const handleChangePassword = () => {};
 
-  const onHandleSubmit = () => values => {
+  const onHandleSubmit = () => (
+    values,
+    { setSubmitting, setStatus, resetForm, error }
+  ) => {
     //Perform Login
     if (edit) {
       console.log("update user", edit);
     } else {
-      addNewUser(values);
+      addNewUser({
+        variables: values
+      })
+        .then(result => {
+          Object.keys(values).forEach(key => (values[key] = ""));
+          resetForm(values);
+          showSuccess(`${result.register.firstName} was created`);
+          setStatus(true);
+        })
+        .catch(err => {
+          showGraphQLError(err);
+          setStatus({ success: false });
+          setSubmitting(false);
+          setErrors({ submit: error.message });
+        });
     }
     console.error("VALUES FROM", values);
   };
@@ -134,18 +153,33 @@ const UserEdit = ({
                         />
                       )}
                     </Grid>
-
-                    <Grid item className={classes.grid}>
-                      <Field
-                        required
-                        id="sellerCode"
-                        name="sellerCode"
-                        label="Seller Code"
-                        fullWidth
-                        component={TextField}
-                      />
+                    <Grid container>
+                      <Grid item xs={6} sm={6} lg={6} className={classes.grid}>
+                        <Field
+                          required
+                          id="sellerCode"
+                          name="sellerCode"
+                          label="Seller Code"
+                          fullWidth
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={6} lg={6} className={classes.grid}>
+                        <Field
+                          required
+                          id="mode"
+                          name="mode"
+                          label="User Mode"
+                          options={[
+                            { label: "Mobile", value: "M" },
+                            { label: "Desktop", value: "D" },
+                            { label: "Synchronizer", value: "S" }
+                          ]}
+                          fullWidth
+                          component={SelectField}
+                        />
+                      </Grid>
                     </Grid>
-
                     <Grid item className={classes.grid}>
                       <Field
                         required

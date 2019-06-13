@@ -1,13 +1,13 @@
 mutation RegisterUser(
-  $email: String
-  $password: String
-  $firstName: String
-  $lastName: String
+  $email: String!
+  $password: String!
+  $firstName: String!
+  $lastName: String!
   $phone: String
   $sellerCode: String
-  $business: String
-  $roles: [String]
-  $mode: String
+  $business: String!
+  $roles: [String!]
+  $mode: String!
 ) {
   register(
     userInput: {
@@ -15,7 +15,7 @@ mutation RegisterUser(
       password: $password
       firstName: $firstName
       lastName: $lastName
-      phone: $phon3e
+      phone: $phone
       sellerCode: $sellerCode
       business: $business
       roles: $roles
@@ -23,5 +23,7 @@ mutation RegisterUser(
     }
   ) {
     _id
+    firstName
+    lastName
   }
 }
