@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -74,6 +74,12 @@ const Roles = ({ field, form: { setFieldValue }, ...props }) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
 
+  useEffect(() => {
+    if (props.userRole.length) {
+      setFieldValue(field.name, props.userRole.map(r => r["_id"]));
+    }
+  }, []);
+
   const [left, setLeft] = React.useState(
     not(props.roles || [], props.userRole || [])
   );
@@ -107,7 +113,6 @@ const Roles = ({ field, form: { setFieldValue }, ...props }) => {
 
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
-    // field.value = not(left, leftChecked);
   };
 
   const handleCheckedLeft = () => {
@@ -115,12 +120,14 @@ const Roles = ({ field, form: { setFieldValue }, ...props }) => {
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
     field.value = not(right, rightChecked);
+    setFieldValue(field.name, field.value.map(r => r["_id"]));
   };
 
   const handleAllLeft = () => {
     setLeft(left.concat(right));
     setRight([]);
     field.value = [];
+    setFieldValue(field.name, []);
   };
 
   const customList = (items, column) => (

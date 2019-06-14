@@ -3,7 +3,7 @@ import MaterialTable from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
 import Icons from "utils/materialIcons";
 import { compose, graphql } from "react-apollo";
-import PhoneIcon from "@material-ui/icons/Phonelink";
+import PhoneIcon from "@material-ui/icons/StayCurrentPortrait";
 import DesktopIcon from "@material-ui/icons/DesktopWindows";
 import SyncIcon from "@material-ui/icons/Sync";
 import CircleIcon from "@material-ui/icons/FiberManualRecord";
@@ -36,7 +36,7 @@ const getIcon = ({ mode }) => {
 const UserList = ({ data }) => {
   const classes = useStyles();
   const getStatus = ({ status }) => {
-    return status === "A" ? (
+    return status ? (
       <CircleIcon className={classes.iconGreen} />
     ) : (
       <CircleIcon className={classes.iconRed} />
@@ -56,7 +56,11 @@ const UserList = ({ data }) => {
 
   const [edit, setEdit] = useState(false);
 
-  const closeEditMode = () => setEdit(null);
+  const closeEditMode = () => {
+    data.refetch();
+    setEdit(null);
+  };
+  const reFetchUserList = () => data.refetch();
   const openEditMode = clientId => setEdit(clientId);
 
   const handleRowClick = (_, rowData) => {
@@ -70,13 +74,20 @@ const UserList = ({ data }) => {
         title=""
         columns={columns}
         data={data.users}
+        isLoading={data.loading}
         icons={Icons}
         onRowClick={handleRowClick}
         options={{
           pageSize: 10
         }}
       />
-      {edit && <UserEdit edit={edit} closeModal={closeEditMode} />}
+      {edit && (
+        <UserEdit
+          edit={edit}
+          reFetchUserList={reFetchUserList}
+          closeModal={closeEditMode}
+        />
+      )}
     </React.Fragment>
   );
 };

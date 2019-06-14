@@ -1,6 +1,6 @@
-mutation RegisterUser(
+mutation UpdateUser(
+  $id: ID
   $email: String!
-  $password: String!
   $firstName: String!
   $lastName: String!
   $phone: String
@@ -10,10 +10,10 @@ mutation RegisterUser(
   $mode: String!
   $status: Boolean
 ) {
-  register(
+  updateUser(
     userInput: {
+      _id: $id
       email: $email
-      password: $password
       firstName: $firstName
       lastName: $lastName
       phone: $phone
@@ -23,9 +23,5 @@ mutation RegisterUser(
       mode: $mode
       status: $status
     }
-  ) {
-    _id
-    firstName
-    lastName
-  }
+  )
 }

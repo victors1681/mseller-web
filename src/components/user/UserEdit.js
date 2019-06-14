@@ -16,8 +16,20 @@ import Roles from "components/Roles";
 import autoComplete from "utils/autoComplete";
 import { showGraphQLError, showSuccess } from "utils/notifications";
 import GET_BUSINESS_LIST from "components/Business/schema/business_all.graphql";
+import * as Yup from "yup";
 import USER_BY_ID from "./schema/user_edit.graphql";
 import ADD_NEW_USER from "./schema/user_add.graphql";
+import UPDATE_USER from "./schema/user_update.graphql";
+
+const UserSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Required"),
+  firstName: Yup.string().required("Invalid First Name"),
+  lastName: Yup.string().required("Invalid Last Name"),
+  mode: Yup.string().required("Required"),
+  business: Yup.string().required("Required")
+});
 
 const useStyles = makeStyles(theme => ({
   progress: {
@@ -36,9 +48,11 @@ const UserEdit = ({
   edit,
   data,
   addNewUser,
+  updateUser,
   rolesData,
   businessData,
-  setErrors
+  setErrors,
+  reFetchUserList
 }) => {
   const classes = useStyles();
   const dataUser = data && data.user;
@@ -55,6 +69,21 @@ const UserEdit = ({
     //Perform Login
     if (edit) {
       console.log("update user", edit);
+      updateUser({
+        variables: { id: edit, ...values }
+      })
+        .then(result => {
+          resetForm(values);
+          showSuccess(`${result.data.updateUser} `);
+          setStatus(true);
+          closeModal();
+        })
+        .catch(err => {
+          showGraphQLError(err);
+          setStatus({ success: false });
+          setSubmitting(false);
+          setErrors({ submit: error.message });
+        });
     } else {
       addNewUser({
         variables: values
@@ -64,6 +93,7 @@ const UserEdit = ({
           resetForm(values);
           showSuccess(`${result.register.firstName} was created`);
           setStatus(true);
+          reFetchUserList();
         })
         .catch(err => {
           showGraphQLError(err);
@@ -72,20 +102,26 @@ const UserEdit = ({
           setErrors({ submit: error.message });
         });
     }
-    console.error("VALUES FROM", values);
-  };
-
-  const onValidate = values => {
-    const errors = {};
-    if (!values.email || !values.password) {
-      errors.name = "Name is required";
-    }
-    return errors;
   };
 
   if (data.loading || rolesData.loading || businessData.loading) {
     return <CircularProgress className={classes.progress} />;
   }
+
+  const customValidation = values => {
+    let errors = {};
+    console.log(values);
+    if (values.roles.length === 0) {
+      errors.roles = "You need to add a least one role";
+    }
+    if (values.mode === "M" && values.sellerCode === "") {
+      errors.sellerCode = "Need to add a seller code.";
+    }
+    if (!edit && (values.password.length < 6 || values.password === "")) {
+      errors.password = "Password need to be grater than 5";
+    }
+    return errors;
+  };
 
   return (
     <React.Fragment>
@@ -96,13 +132,13 @@ const UserEdit = ({
         maxWidth="md"
       >
         <Formik
-          onSubmit={onHandleSubmit(history)}
-          validate={onValidate}
+          onSubmit={onHandleSubmit()}
+          validationSchema={UserSchema}
+          validate={customValidation}
           initialValues={{
             ...dataUser,
             business: (dataUser && dataUser.business["_id"]) || "",
-            status:
-              (edit && dataUser && dataUser.status === "A") || (!edit && true)
+            status: edit ? dataUser.status : true
           }}
         >
           {props => (
@@ -157,16 +193,6 @@ const UserEdit = ({
                       <Grid item xs={6} sm={6} lg={6} className={classes.grid}>
                         <Field
                           required
-                          id="sellerCode"
-                          name="sellerCode"
-                          label="Seller Code"
-                          fullWidth
-                          component={TextField}
-                        />
-                      </Grid>
-                      <Grid item xs={6} sm={6} lg={6} className={classes.grid}>
-                        <Field
-                          required
                           id="mode"
                           name="mode"
                           label="User Mode"
@@ -177,6 +203,17 @@ const UserEdit = ({
                           ]}
                           fullWidth
                           component={SelectField}
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={6} lg={6} className={classes.grid}>
+                        <Field
+                          style={{ "padding-left": "10px" }}
+                          required
+                          id="sellerCode"
+                          name="sellerCode"
+                          label="Seller Code"
+                          fullWidth
+                          component={TextField}
                         />
                       </Grid>
                     </Grid>
@@ -228,8 +265,15 @@ const UserEdit = ({
               </DialogContent>
               <DialogActions>
                 <Button onClick={() => closeModal()}>Cancel</Button>
-                <Button color="primary" variant="contained" type="submit">
-                  Create
+                <Button
+                  color="primary"
+                  variant="contained"
+                  disabled={
+                    !props.dirty || props.isSubmitting || !props.isValid
+                  }
+                  type="submit"
+                >
+                  {edit ? "Edit " : "Create"}
                 </Button>
               </DialogActions>
             </Form>
@@ -246,5 +290,6 @@ export default compose(
   }),
   graphql(GET_BUSINESS_LIST, { name: "businessData" }),
   graphql(GET_ALL_ROLES, { name: "rolesData" }),
-  graphql(ADD_NEW_USER, { name: "addNewUser" })
+  graphql(ADD_NEW_USER, { name: "addNewUser" }),
+  graphql(UPDATE_USER, { name: "updateUser" })
 )(UserEdit);
