@@ -16,9 +16,9 @@ export const TextField = ({
       {...field}
       {...props}
       inputProps={{
-        autocomplete: "new-password",
+        autoComplete: "new-password",
         form: {
-          autocomplete: "off"
+          autoComplete: "off"
         }
       }}
       error={!!errors[field.name]}

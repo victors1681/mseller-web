@@ -156,7 +156,6 @@ const SignIn = ({ loginUser, location, history }) => {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  load
                   className={classes.submit}
                   disabled={loginUser.loading}
                 >
