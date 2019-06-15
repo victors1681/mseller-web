@@ -119,7 +119,7 @@ const getClientDetailView = (edit, classes) => (
         label="City"
         fullWidth
         component={TextField}
-        autocomplete="off"
+        autoComplete="off"
       />
     </Grid>
     <Grid item xs={12} sm={3}>
@@ -129,7 +129,7 @@ const getClientDetailView = (edit, classes) => (
         name="state"
         label="State"
         id="state"
-        autocomplete="off"
+        autoComplete="off"
         component={TextField}
       />
     </Grid>
@@ -140,7 +140,7 @@ const getClientDetailView = (edit, classes) => (
         name="country"
         label="Country"
         id="country"
-        autocomplete="false"
+        autoComplete="false"
         component={TextField}
       />
     </Grid>
@@ -150,7 +150,7 @@ const getClientDetailView = (edit, classes) => (
         name="zipCode"
         label="Zip Code"
         id="zipCode"
-        autocomplete="false"
+        autoComplete="false"
         component={TextField}
       />
     </Grid>

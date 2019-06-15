@@ -18,7 +18,8 @@ export const TextField = ({
       inputProps={{
         autoComplete: "new-password",
         form: {
-          autoComplete: "off"
+          autoComplete:
+            props.autoComplete === "off" ? "off" : props.autoComplete
         }
       }}
       error={!!errors[field.name]}
@@ -52,13 +53,7 @@ export const SelectField = ({
       <Select
         {...field}
         {...props}
-        // value={field.values}
-        // inputProps={{
-        //   name: field.name,
-        //   id: props.id
-        // }}
         onChange={(e, p) => {
-          console.log({ e, p, fn: field.name });
           setFieldValue(field.name, e.target.value);
         }}
         error={!!errors[field.name]}

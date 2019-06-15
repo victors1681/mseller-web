@@ -64,7 +64,6 @@ const UserList = ({ data }) => {
   const openEditMode = clientId => setEdit(clientId);
 
   const handleRowClick = (_, rowData) => {
-    console.log(rowData);
     openEditMode(rowData["_id"]);
   };
 

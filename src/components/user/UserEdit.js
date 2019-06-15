@@ -68,7 +68,6 @@ const UserEdit = ({
   ) => {
     //Perform Login
     if (edit) {
-      console.log("update user", edit);
       updateUser({
         variables: { id: edit, ...values }
       })
@@ -110,7 +109,6 @@ const UserEdit = ({
 
   const customValidation = values => {
     let errors = {};
-    console.log(values);
     if (values.roles.length === 0) {
       errors.roles = "You need to add a least one role";
     }
@@ -207,7 +205,7 @@ const UserEdit = ({
                       </Grid>
                       <Grid item xs={6} sm={6} lg={6} className={classes.grid}>
                         <Field
-                          style={{ "padding-left": "10px" }}
+                          style={{ paddingLeft: "10px" }}
                           required
                           id="sellerCode"
                           name="sellerCode"
