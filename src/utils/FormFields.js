@@ -53,7 +53,7 @@ export const SelectField = ({
       <Select
         {...field}
         {...props}
-        onChange={(e, p) => {
+        onChange={e => {
           setFieldValue(field.name, e.target.value);
         }}
         error={!!errors[field.name]}

@@ -218,6 +218,16 @@ const UserEdit = ({
                     <Grid item className={classes.grid}>
                       <Field
                         required
+                        id="phone"
+                        name="phone"
+                        label="phone"
+                        fullWidth
+                        component={TextField}
+                      />
+                    </Grid>
+                    <Grid item className={classes.grid}>
+                      <Field
+                        required
                         id="email"
                         name="email"
                         label="Email"
@@ -244,7 +254,6 @@ const UserEdit = ({
                       name="roles"
                       label="Roles"
                       fullWidth
-                      autoComplete="roles"
                       roles={rolesList}
                       userRole={userRole}
                       component={Roles}

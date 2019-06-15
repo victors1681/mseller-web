@@ -5,6 +5,7 @@ query User($id: ID) {
     lastName
     email
     sellerCode
+    phone
     business {
       _id
       name

@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     width: 200,
-    minHeight: 350,
+    minHeight: 400,
     overflow: "auto"
   },
   button: {
