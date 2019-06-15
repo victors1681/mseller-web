@@ -36,6 +36,7 @@ module.exports = {
     "no-console": "off",
     "import/no-unresolved": "off",
     "jsx-a11y/anchor-is-valid": "off",
-    "react/jsx-wrap-multilines": "off"
+    "react/jsx-wrap-multilines": "off",
+    "react/display-name": "off"
   }
 };

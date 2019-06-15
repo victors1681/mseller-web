@@ -81,7 +81,7 @@ const UserEdit = ({
           showGraphQLError(err);
           setStatus({ success: false });
           setSubmitting(false);
-          setErrors({ submit: error.message });
+          setErrors({ submit: error });
         });
     } else {
       addNewUser({
@@ -98,7 +98,7 @@ const UserEdit = ({
           showGraphQLError(err);
           setStatus({ success: false });
           setSubmitting(false);
-          setErrors({ submit: error.message });
+          setErrors({ submit: error });
         });
     }
   };

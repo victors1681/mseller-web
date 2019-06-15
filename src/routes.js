@@ -14,6 +14,7 @@ import Logs from "views/Logs";
 import Dashboard from "./views/Dashboard";
 import Users from "./views/Users";
 import Clients from "./views/Clients";
+import Products from "./views/Products";
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
   return (
@@ -67,6 +68,12 @@ const Routes = () => {
                 key="Clients"
                 path="/Clients"
                 component={Clients}
+                isAuthenticated={data}
+              />
+              <PrivateRoute
+                key="Products"
+                path="/Products"
+                component={Products}
                 isAuthenticated={data}
               />
               <PrivateRoute
