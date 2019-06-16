@@ -87,8 +87,10 @@ const SignIn = ({ loginUser, location, history }) => {
       variables: values
     })
       .then(response => {
-        localStorage.setItem("token", response.data.login);
-        //client.writeData({ data: { isLoggedIn: true } });
+        localStorage.setItem("token", response.data.login.token);
+        localStorage.setItem("lang", response.data.login.lang);
+        localStorage.setItem("currency", response.data.login.business.currency);
+
         history.push("/Dashboard");
       })
       .catch(error => {
@@ -193,7 +195,20 @@ const SignIn = ({ loginUser, location, history }) => {
 
 const LOGIN_USER = gql`
   mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password)
+    login(email: $email, password: $password) {
+      _id
+      firstName
+      lastName
+      email
+      lang
+      business {
+        _id
+        name
+        currency
+        lang
+      }
+      token
+    }
   }
 `;
 export default compose(graphql(LOGIN_USER, { name: "loginUser" }))(SignIn);

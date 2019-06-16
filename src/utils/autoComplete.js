@@ -191,12 +191,8 @@ const AutoComplete = ({
   const classes = useStyles();
   const theme = useTheme();
 
-  let initialValue = {};
-  if (field.value && props.options) {
-    const { name, _id } = props.options.find(f => f["_id"] === field.value);
-    initialValue.label = name;
-    initialValue.value = _id;
-  }
+  const initialValue = props.options.find(f => f["value"] === field.value);
+
   const [single, setSingle] = React.useState(initialValue);
 
   function handleChangeSingle(value, field) {
@@ -214,10 +210,6 @@ const AutoComplete = ({
     })
   };
 
-  const suggestions = props.options.map(suggestion => ({
-    value: suggestion["_id"],
-    label: suggestion.name
-  }));
   return (
     <Select
       classes={classes}
@@ -234,7 +226,7 @@ const AutoComplete = ({
         },
         placeholder: props.placeholder
       }}
-      options={suggestions}
+      options={props.options}
       components={components}
       value={single}
       onChange={handleChangeSingle}

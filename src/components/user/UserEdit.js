@@ -43,6 +43,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const businessOptions = options =>
+  options.map(suggestion => ({
+    value: suggestion["_id"],
+    label: suggestion.name
+  }));
+
+const localeOptions = [
+  { value: "en", label: "English" },
+  { value: "es", label: "Español" }
+];
+
 const UserEdit = ({
   closeModal,
   edit,
@@ -215,15 +226,28 @@ const UserEdit = ({
                         />
                       </Grid>
                     </Grid>
-                    <Grid item className={classes.grid}>
-                      <Field
-                        required
-                        id="phone"
-                        name="phone"
-                        label="phone"
-                        fullWidth
-                        component={TextField}
-                      />
+                    <Grid container>
+                      <Grid item className={classes.grid}>
+                        <Field
+                          required
+                          id="phone"
+                          name="phone"
+                          label="phone"
+                          fullWidth
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item className={classes.grid}>
+                        <Field
+                          required
+                          id="lang"
+                          name="lang"
+                          label="Language"
+                          fullWidth
+                          options={localeOptions}
+                          component={autoComplete}
+                        />
+                      </Grid>
                     </Grid>
                     <Grid item className={classes.grid}>
                       <Field
@@ -242,7 +266,7 @@ const UserEdit = ({
                         name="business"
                         label="Business"
                         fullWidth
-                        options={businessData.business}
+                        options={businessOptions(businessData.business)}
                         component={autoComplete}
                       />
                     </Grid>
@@ -293,7 +317,10 @@ const UserEdit = ({
 
 export default compose(
   graphql(USER_BY_ID, {
-    options: props => ({ variables: { id: props.edit } })
+    options: props => ({
+      variables: { id: props.edit },
+      fetchPolicy: "cache-and-network"
+    })
   }),
   graphql(GET_BUSINESS_LIST, { name: "businessData" }),
   graphql(GET_ALL_ROLES, { name: "rolesData" }),

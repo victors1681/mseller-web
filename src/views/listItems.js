@@ -12,6 +12,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import { injectIntl } from "react-intl";
 
 const useStyles = makeStyles(theme => ({
   nested: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const MainListItems = ({ history }) => {
+const Main = ({ history, intl }) => {
   const handleClick = path => () => {
     history.push(path);
   };
@@ -44,7 +45,12 @@ export const MainListItems = ({ history }) => {
         <ListItemIcon>
           <MemoryIcon />
         </ListItemIcon>
-        <ListItemText primary="products" />
+        <ListItemText
+          primary={intl.formatMessage({
+            id: "nav.products",
+            defaultMessage: "Products"
+          })}
+        />
       </ListItem>
       <ListItem button onClick={handleClick("Logs")}>
         <ListItemIcon>
@@ -73,6 +79,8 @@ export const MainListItems = ({ history }) => {
     </React.Fragment>
   );
 };
+
+export const MainListItems = injectIntl(Main);
 
 export const secondaryListItems = (
   <React.Fragment>

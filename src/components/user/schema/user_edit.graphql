@@ -18,5 +18,6 @@ query User($id: ID) {
     }
     mode
     status
+    lang
   }
 }

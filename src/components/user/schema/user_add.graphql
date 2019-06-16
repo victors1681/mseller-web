@@ -9,6 +9,7 @@ mutation RegisterUser(
   $roles: [String!]
   $mode: String!
   $status: Boolean
+  $lang: String
 ) {
   register(
     userInput: {
@@ -22,6 +23,7 @@ mutation RegisterUser(
       roles: $roles
       mode: $mode
       status: $status
+      lang: $lang
     }
   ) {
     _id

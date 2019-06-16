@@ -10,7 +10,15 @@ import Routes from "./routes";
 import theme from "./common/theme/theme";
 import "./common/theme/fontFace.scss";
 import client from "./apolloClient";
+import { addLocaleData, IntlProvider } from "react-intl";
+import en from "react-intl/locale-data/en";
+import es from "react-intl/locale-data/es";
 import { ApolloProvider } from "react-apollo";
+import CurrencyProvider from "components/common/Currency/CurrencyProvider";
+import translation from "./common/i18n/translation";
+
+addLocaleData(en);
+addLocaleData(es);
 
 setConfig({
   reloadHooks: false
@@ -20,7 +28,11 @@ const App = () => (
   <DragDropContext>
     <MuiThemeProvider theme={theme}>
       <ApolloProvider client={client}>
-        <Routes />
+        <IntlProvider locale="es-US" messages={translation["es"]}>
+          <CurrencyProvider>
+            <Routes />
+          </CurrencyProvider>
+        </IntlProvider>
       </ApolloProvider>
     </MuiThemeProvider>
     <ToastContainer />

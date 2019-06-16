@@ -9,6 +9,7 @@ mutation UpdateUser(
   $roles: [String!]
   $mode: String!
   $status: Boolean
+  $lang: String
 ) {
   updateUser(
     userInput: {
@@ -22,6 +23,7 @@ mutation UpdateUser(
       roles: $roles
       mode: $mode
       status: $status
+      lang: $lang
     }
   )
 }
