@@ -39,7 +39,7 @@ const Main = ({ history, intl }) => {
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Clients" />
+        <ListItemText primary="Customers" />
       </ListItem>
       <ListItem button onClick={handleClick("Products")}>
         <ListItemIcon>

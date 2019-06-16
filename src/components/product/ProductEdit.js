@@ -12,7 +12,6 @@ import { injectIntl } from "react-intl";
 import { Form, Formik, Field } from "formik";
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-//import autoComplete from "utils/autoComplete";
 import Typography from "@material-ui/core/Typography";
 import { showGraphQLError, showSuccess } from "utils/notifications";
 import Divider from "@material-ui/core/Divider";
