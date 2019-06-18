@@ -28,7 +28,7 @@ module.exports = env => {
       hints: false
     };
     config.devServer = getDevServer();
-    config.devtool = false;
+    config.devtool = "inline-module-source-map";
   }
 
   if (isProd(env)) {

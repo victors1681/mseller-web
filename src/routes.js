@@ -15,6 +15,8 @@ import Dashboard from "./views/Dashboard";
 import Users from "./views/Users";
 import Clients from "./views/Clients";
 import Products from "./views/Products";
+import Documents from "./views/Documents";
+import Document from "./views/Document";
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
   return (
@@ -62,6 +64,19 @@ const Routes = () => {
                 path="/"
                 component={Dashboard}
                 exact
+                isAuthenticated={data}
+              />
+
+              <PrivateRoute
+                key="Documents"
+                path="/Documents"
+                component={Documents}
+                isAuthenticated={data}
+              />
+              <PrivateRoute
+                key="Document"
+                path="/Document"
+                component={Document}
                 isAuthenticated={data}
               />
               <PrivateRoute

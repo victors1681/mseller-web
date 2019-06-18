@@ -15,7 +15,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Footer from "components/Footer";
-import LinearProgress from "@material-ui/core/LinearProgress";
+// import LinearProgress from "@material-ui/core/LinearProgress";
 import { MainListItems } from "./listItems";
 
 const drawerWidth = 240;
@@ -100,8 +100,9 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto"
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(0),
+    paddingBottom: theme.spacing(0),
+    padding: theme.spacing(0),
     height: "calc(100vh - 93px)"
   },
   fixedHeight: {
@@ -180,7 +181,7 @@ export default function Layout({ children, history, location }) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        {<LinearProgress />}
+
         <Container maxWidth="xl" className={classes.container}>
           {children}
         </Container>

@@ -5,7 +5,7 @@ const path = require("path");
 const getBabelLoader = () => ({
   test: /\.(js)$/,
   exclude: /node_modules/,
-  use: ["babel-loader"]
+  use: "babel-loader"
 });
 
 const getGraphQLLoaader = () => ({
