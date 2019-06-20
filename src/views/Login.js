@@ -2,8 +2,6 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -98,6 +96,12 @@ const SignIn = ({ loginUser, location, history }) => {
       });
   };
 
+  const handleKeyDown = (e, cb) => {
+    if (e.key === "Enter" && e.shiftKey === false) {
+      e.preventDefault();
+      cb();
+    }
+  };
   return (
     <Container component="main" maxWidth="xs">
       {isAuthenticated && (
@@ -121,8 +125,15 @@ const SignIn = ({ loginUser, location, history }) => {
           validationSchema={LoginSchema}
           initialValues={{ email: "", password: "" }}
         >
-          {() => (
-            <Form className={classes.form} noValidate>
+          {({ handleSubmit }) => (
+            <Form
+              onSubmit={handleSubmit}
+              className={classes.form}
+              noValidate
+              onKeyDown={e => {
+                handleKeyDown(e, handleSubmit);
+              }}
+            >
               <Field
                 variant="outlined"
                 margin="normal"
@@ -146,10 +157,6 @@ const SignIn = ({ loginUser, location, history }) => {
                 id="password"
                 autoComplete="current-password"
                 component={TextField}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
               />
 
               <div className={classes.wrapper}>

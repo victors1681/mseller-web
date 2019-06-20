@@ -1,5 +1,8 @@
-import ApolloClient, { InMemoryCache } from "apollo-boost";
 import gql from "graphql-tag";
+
+const { ApolloClient } = require("apollo-client");
+const { InMemoryCache } = require("apollo-cache-inmemory");
+const { createUploadLink } = require("apollo-upload-client");
 
 const cache = new InMemoryCache();
 
@@ -21,21 +24,21 @@ const resolvers = {
       const { isLoggedIn } = cache.readQuery({
         query: GET_USER_DATA
       });
-
-      console.error("DATAAAA IS", isLoggedIn);
       return { isLoggedIn };
     }
   }
 };
+
 const client = new ApolloClient({
-  //uri: "https://mseller-api.victors1681.now.sh/",
-  uri: "http://localhost:4000/api",
-  headers: {
-    authorization: `bearer ${localStorage.getItem("token")}`,
-    "client-name": "MSeller [web]",
-    "client-version": "1.0.0"
-  },
-  cache,
+  cache: new InMemoryCache(),
+  link: createUploadLink({
+    uri: process.env.API_URI,
+    headers: {
+      authorization: `bearer ${localStorage.getItem("token")}`,
+      "client-name": "MSeller [web]",
+      "client-version": "1.0.0"
+    }
+  }),
   resolvers,
   typeDefs
 });

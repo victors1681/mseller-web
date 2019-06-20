@@ -16,10 +16,12 @@ import Typography from "@material-ui/core/Typography";
 import { showGraphQLError, showSuccess } from "utils/notifications";
 import Divider from "@material-ui/core/Divider";
 import * as Yup from "yup";
+import DropZone from "components/common/DropZone";
 import {
   UpdateProduct,
   ProductById,
-  AddProduct
+  AddProduct,
+  UploadImage
 } from "./schema/products.graphql";
 
 const ProductSchema = intl => {
@@ -62,6 +64,7 @@ const ProductEdit = ({
   addNewProduct,
   updateProduct,
   reFetchProductList,
+  uploadImage,
   intl
 }) => {
   const classes = useStyles();
@@ -406,6 +409,7 @@ const ProductEdit = ({
                       })}
                     />
                   </Grid>
+                  <DropZone mutation={uploadImage} />
                 </Grid>
               </DialogContent>
               <DialogActions>
@@ -448,6 +452,7 @@ export default injectIntl(
       options: props => ({ variables: { code: props.edit } })
     }),
     graphql(AddProduct, { name: "addNewProduct" }),
-    graphql(UpdateProduct, { name: "updateProduct" })
+    graphql(UpdateProduct, { name: "updateProduct" }),
+    graphql(UploadImage, { name: "uploadImage" })
   )(ProductEdit)
 );

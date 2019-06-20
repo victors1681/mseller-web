@@ -31,7 +31,6 @@ const ProductList = ({ data }) => {
   ];
 
   const [edit, setEdit] = useState(false);
-
   const closeEditMode = () => {
     data.refetch();
     setEdit(null);

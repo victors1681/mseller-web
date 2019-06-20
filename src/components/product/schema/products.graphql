@@ -35,6 +35,13 @@ query ProductById($code: String) {
   }
 }
 
+mutation UploadImage($file: Upload!) {
+  uploadProductImage(file: $file) {
+    filename
+    mimetype
+    encoding
+  }
+}
 mutation AddProduct(
   $code: String!
   $barCode: String

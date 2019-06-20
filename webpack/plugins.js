@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const Dotenv = require("dotenv-webpack");
 const { isProd, isDev } = require("./utils");
 
 const getHtmlWebpackPlugin = env =>
@@ -57,7 +58,10 @@ const getPlugins = env =>
     getBundleAnalyzerPlugin(env),
     getMiniCssExtractPlugin(env),
     getHMR(env),
-    getCleanWebpackPlugin(env)
+    getCleanWebpackPlugin(env),
+    new Dotenv({
+      path: path.join(__dirname, "..", ".env")
+    })
   ].filter(plugin => plugin);
 
 module.exports.getPlugins = getPlugins;

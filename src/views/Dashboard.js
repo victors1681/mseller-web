@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import PostTable from "components/PostTable";
+import ContentWrapper from "components/common/ContentWrapper";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -22,7 +23,7 @@ const Dashboard = () => {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-    <React.Fragment>
+    <ContentWrapper>
       <Grid container spacing={2}>
         {/* Chart */}
         <Grid item xs={12} md={8} lg={9}>
@@ -37,7 +38,7 @@ const Dashboard = () => {
           <Paper className={classes.paper}>{/* <Orders /> */}</Paper>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </ContentWrapper>
   );
 };
 export default Dashboard;
