@@ -63,6 +63,7 @@ mutation AddProduct(
   $field4: Float
   $field5: Float
   $field6: Float
+  $images: [Upload]
 ) {
   addProduct(
     product: {
@@ -86,6 +87,7 @@ mutation AddProduct(
       field4: $field4
       field5: $field5
       field6: $field6
+      images: $images
     }
   )
 }
@@ -111,6 +113,7 @@ mutation UpdateProduct(
   $field4: Float
   $field5: Float
   $field6: Float
+  $images: Upload
 ) {
   updateProduct(
     product: {
@@ -134,6 +137,7 @@ mutation UpdateProduct(
       field4: $field4
       field5: $field5
       field6: $field6
+      images: $images
     }
   )
 }

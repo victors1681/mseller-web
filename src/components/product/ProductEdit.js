@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { TextField, Checkbox } from "utils/FormFields";
 import Dialog from "@material-ui/core/Dialog";
@@ -67,6 +67,10 @@ const ProductEdit = ({
   uploadImage,
   intl
 }) => {
+  const [images, setImages] = useState();
+
+  const handleImages = imgs => setImages(imgs);
+
   const classes = useStyles();
   const dataProduct = data && data.product;
 
@@ -92,7 +96,7 @@ const ProductEdit = ({
         });
     } else {
       addNewProduct({
-        variables: values
+        variables: { ...values, images }
       })
         .then(result => {
           Object.keys(values).forEach(
@@ -409,7 +413,10 @@ const ProductEdit = ({
                       })}
                     />
                   </Grid>
-                  <DropZone mutation={uploadImage} />
+                  <DropZone
+                    mutation={uploadImage}
+                    handleImages={handleImages}
+                  />
                 </Grid>
               </DialogContent>
               <DialogActions>

@@ -1,19 +1,21 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
-const DropZone = ({ mutation }) => {
+const DropZone = ({ handleImages }) => {
   const onDrop = useCallback(acceptedFiles => {
-    mutation({
-      variables: {
-        file: acceptedFiles[0]
-      }
-    })
-      .then(response => {
-        console.log("From Grap", response);
-      })
-      .catch(err => {
-        console.log("From Grap", err);
-      });
+    // mutation({
+    //   variables: {
+    //     file: acceptedFiles[0]
+    //   }
+    // })
+    //   .then(response => {
+    //     console.log("From Grap", response);
+    //   })
+    //   .catch(err => {
+    //     console.log("From Grap", err);
+    //   });
+
+    handleImages(acceptedFiles);
   }, []);
 
   const onDropRejected = useCallback(data => {
