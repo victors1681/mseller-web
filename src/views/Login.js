@@ -8,7 +8,7 @@ import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import green from "@material-ui/core/colors/green";
 import { Form, Formik, Field } from "formik";
@@ -45,8 +45,18 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.common.white
     }
   },
+  root: {
+    height: "100vh"
+  },
+  image: {
+    backgroundImage:
+      "url(https://source.unsplash.com/collection/5138735/coding)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  },
   paper: {
-    marginTop: theme.spacing(8),
+    margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -103,7 +113,7 @@ const SignIn = ({ loginUser, location, history }) => {
     }
   };
   return (
-    <Container component="main" maxWidth="xs">
+    <Grid container component="main" className={classes.root}>
       {isAuthenticated && (
         <Redirect
           to={{
@@ -113,90 +123,103 @@ const SignIn = ({ loginUser, location, history }) => {
         />
       )}
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <Formik
-          onSubmit={onHandleSubmit()}
-          validationSchema={LoginSchema}
-          initialValues={{ email: "", password: "" }}
-        >
-          {({ handleSubmit }) => (
-            <Form
-              onSubmit={handleSubmit}
-              className={classes.form}
-              noValidate
-              onKeyDown={e => {
-                handleKeyDown(e, handleSubmit);
-              }}
-            >
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                component={TextField}
-              />
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                component={TextField}
-              />
-
-              <div className={classes.wrapper}>
-                <Button
-                  type="submit"
+      <CssBaseline />
+      <Grid item xs={false} sm={6} md={9} className={classes.image} />
+      <Grid
+        item
+        xs={12}
+        sm={10}
+        md={3}
+        component={Paper}
+        elevation={6}
+        square
+        alignItems="center"
+      >
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Formik
+            onSubmit={onHandleSubmit()}
+            validationSchema={LoginSchema}
+            initialValues={{ email: "", password: "" }}
+          >
+            {({ handleSubmit }) => (
+              <Form
+                onSubmit={handleSubmit}
+                className={classes.form}
+                noValidate
+                onKeyDown={e => {
+                  handleKeyDown(e, handleSubmit);
+                }}
+              >
+                <Field
+                  variant="outlined"
+                  margin="normal"
+                  required
                   fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  disabled={loginUser.loading}
-                >
-                  Sign In
-                </Button>
-                {loginUser.loading && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
-              </div>
-              <Grid container>
-                <Grid item xs>
-                  <Link component="a" variant="body2">
-                    Forgot password?
-                  </Link>
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  component={TextField}
+                />
+                <Field
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  component={TextField}
+                />
+
+                <div className={classes.wrapper}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    disabled={loginUser.loading}
+                  >
+                    Sign In
+                  </Button>
+                  {loginUser.loading && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )}
+                </div>
+                <Grid container>
+                  <Grid item xs>
+                    <Link component="a" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link component="a" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link component="a" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-      </div>
-      <Box mt={5}>
-        <MadeWithLove />
-      </Box>
-    </Container>
+              </Form>
+            )}
+          </Formik>
+        </div>
+        <Box mt={5}>
+          <MadeWithLove />
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -42,18 +42,15 @@ mutation UploadImage($file: Upload!) {
     encoding
   }
 }
+
+ 
 mutation AddProduct(
   $code: String!
   $barCode: String
   $name: String!
   $classification: String
   $status: Boolean
-  $price1: Float
-  $price2: Float
-  $price3: Float
-  $price4: Float
-  $price5: Float
-  $price6: Float
+  $price:[PriceInput]
   $saleUnit: String
   $tax: Float
   $stock: Float
@@ -72,12 +69,7 @@ mutation AddProduct(
       name: $name
       classification: $classification
       status: $status
-      price1: $price1
-      price2: $price2
-      price3: $price3
-      price4: $price4
-      price5: $price5
-      price6: $price6
+      price: $price
       saleUnit: $saleUnit
       tax: $tax
       stock: $stock

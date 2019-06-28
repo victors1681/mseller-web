@@ -29,6 +29,16 @@ export default {
     "client.edit.header.edit": "Editando",
     "client.edit.header.new": "Nuevo Cliente",
     "product.edit.header.edit": "Editando",
-    "product.edit.header.new": "Nuevo Producto"
+    "product.edit.header.new": "Nuevo Producto",
+
+    "unit.edit.header.edit": "Editando",
+    "unit.edit.header.new": "Nueva Unidad",
+    "unit.edit.shortName": "Nombre Corto",
+    "unit.error.shortName":
+      "Debe tener un mínimo de 2 caracteres y un máximo de 3. Ej: Unidad -> Un",
+
+    "tax.edit.percentage": "Porcentaje",
+    "tax.edit.deductible": "Impuesto acreditable",
+    "tax.edit.description": "Descripción"
   }
 };

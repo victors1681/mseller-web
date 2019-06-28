@@ -1,0 +1,11 @@
+query Units {
+  units {
+    id
+    name
+    shortName
+  }
+}
+
+mutation AddUnit($id: ID, $name: String, $shortName: String) {
+  addUnit(unit: { id: $id, name: $name, shortName: $shortName })
+}

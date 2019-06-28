@@ -1,0 +1,28 @@
+query Taxes {
+  taxes {
+    id
+    name
+    percentage
+    description
+    deductible
+    status
+  }
+}
+
+mutation AddTax(
+  $id: ID
+  $name: String
+  $percentage: Float
+  $description: String
+  $deductible: Boolean
+) {
+  addTax(
+    tax: {
+      id: $id
+      name: $name
+      percentage: $percentage
+      description: $description
+      deductible: $deductible
+    }
+  )
+}

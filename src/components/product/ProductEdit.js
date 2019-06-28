@@ -8,6 +8,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { injectIntl } from "react-intl";
 import { Form, Formik, Field } from "formik";
 import Grid from "@material-ui/core/Grid";
@@ -17,6 +18,8 @@ import { showGraphQLError, showSuccess } from "utils/notifications";
 import Divider from "@material-ui/core/Divider";
 import * as Yup from "yup";
 import DropZone from "components/common/DropZone";
+import TaxDropDown from "components/Taxes/TaxDropDown";
+import UnitsSelect from "components/Units/UnitsSelect";
 import {
   UpdateProduct,
   ProductById,
@@ -54,6 +57,9 @@ const useStyles = makeStyles(theme => ({
   },
   grid: {
     marginBottom: "21px"
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1)
   }
 }));
 
@@ -78,6 +84,22 @@ const ProductEdit = ({
     values,
     { setSubmitting, setStatus, resetForm }
   ) => {
+    values = {
+      ...values,
+      price: [
+        {
+          idPriceList: "123123",
+          price: values.price1,
+          name: "general"
+        },
+        {
+          idPriceList: "23423324",
+          price: values.price2,
+          name: "Distributor"
+        }
+      ]
+    };
+
     //Perform Login
     if (edit) {
       updateProduct({
@@ -160,7 +182,7 @@ const ProductEdit = ({
                     })}
               </DialogTitle>
               <DialogContent>
-                <Grid container spacing={3}>
+                <Grid container spacing={1}>
                   <Grid item xs={12} sm={2}>
                     <Field
                       required
@@ -200,115 +222,28 @@ const ProductEdit = ({
                       component={TextField}
                     />
                   </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      required
-                      id="price2"
-                      name="price2"
-                      translation="common.price2"
-                      label="Price 2"
-                      fullWidth
-                      autoComplete="off"
-                      type="number"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      required
-                      id="price3"
-                      name="price3"
-                      translation="common.price3"
-                      label="Price 3"
-                      fullWidth
-                      autoComplete="off"
-                      type="number"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      required
-                      id="price4"
-                      name="price4"
-                      translation="common.price4"
-                      label="Price 4"
-                      fullWidth
-                      autoComplete="off"
-                      type="number"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      required
-                      id="price5"
-                      name="price5"
-                      translation="common.price5"
-                      label="Price 5"
-                      fullWidth
-                      autoComplete="off"
-                      type="number"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      required
-                      id="price6"
-                      name="price6"
-                      translation="common.price6"
-                      label="Price 6"
-                      fullWidth
-                      autoComplete="off"
-                      type="number"
-                      component={TextField}
-                    />
+                  <Grid item>
+                    <Button
+                      size="small"
+                      color="secondary"
+                      className={classes.button}
+                    >
+                      <AddCircleIcon className={classes.leftIcon} />
+                      Add Price List
+                    </Button>
                   </Grid>
 
                   <Grid item xs={12} sm={2}>
-                    <Field
-                      required
-                      id="tax"
-                      name="tax"
-                      translation="common.tax"
-                      label="Tax"
-                      fullWidth
-                      type="number"
-                      component={TextField}
-                      autoComplete="off"
-                    />
+                    <TaxDropDown />
                   </Grid>
                   <Grid item xs={12} sm={3}>
-                    <Field
-                      required
-                      fullWidth
-                      name="saleUnit"
-                      label="saleUnit"
-                      translation="common.unit"
-                      id="unit"
-                      autoComplete="off"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={2}>
-                    <Field
-                      required
-                      fullWidth
-                      name="stock"
-                      label="Stock"
-                      translation="common.stock"
-                      id="stock"
-                      type="number"
-                      autoComplete="off"
-                      component={TextField}
-                    />
+                    <UnitsSelect />
                   </Grid>
                   <Grid item xs={12} sm={3}>
                     <Field
                       fullWidth
                       name="barCode"
-                      label="Bar Code"
+                      label="UPC - EAN Code"
                       translation="common.barCode"
                       id="barCode"
                       autoComplete="false"
@@ -336,70 +271,6 @@ const ProductEdit = ({
                       Optional Parameters
                     </Typography>
                     <Divider />
-                  </Grid>
-
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      id="field1"
-                      name="field1"
-                      label="Field 1"
-                      fullWidth
-                      autoComplete="off"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      id="field2"
-                      name="field2"
-                      label="Field 2"
-                      fullWidth
-                      autoComplete="off"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      id="field3"
-                      name="field3"
-                      label="Field 3"
-                      fullWidth
-                      autoComplete="off"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      id="field4"
-                      name="field4"
-                      label="Field 4"
-                      fullWidth
-                      type="number"
-                      autoComplete="off"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      id="field5"
-                      name="field5"
-                      label="Field 5"
-                      fullWidth
-                      type="number"
-                      autoComplete="off"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      id="field6"
-                      name="field6"
-                      label="Field 6"
-                      fullWidth
-                      type="number"
-                      autoComplete="off"
-                      component={TextField}
-                    />
                   </Grid>
 
                   <Grid item xs={12}>
