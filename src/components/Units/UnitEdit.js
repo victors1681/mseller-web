@@ -28,7 +28,6 @@ const UnitsSchema = intl => {
   });
 
   return Yup.object().shape({
-    id: Yup.string().required(required),
     name: Yup.string().required(required),
     shortName: Yup.string()
       .min(2)
@@ -99,19 +98,6 @@ const UnitEdit = ({ data, addUnit, edit, closeModal, intl }) => {
               </DialogTitle>
               <DialogContent>
                 <Grid container spacing={0}>
-                  <Grid item xs={12}>
-                    <Field
-                      required
-                      id="id"
-                      name="id"
-                      translation="common.code"
-                      label="ID"
-                      fullWidth
-                      autoComplete="off"
-                      component={TextField}
-                      disabled={!!edit}
-                    />
-                  </Grid>
                   <Grid item xs={12}>
                     <Field
                       required

@@ -30,6 +30,9 @@ export default {
     "client.edit.header.new": "Nuevo Cliente",
     "product.edit.header.edit": "Editando",
     "product.edit.header.new": "Nuevo Producto",
+    "product.inventory.header": "Manejo de Inventario",
+    "product.inventory.subTitle": "Administra las existencias y almacenes",
+    "product.inventory.unitCost": "Costo Unitario",
 
     "unit.edit.header.edit": "Editando",
     "unit.edit.header.new": "Nueva Unidad",
@@ -39,6 +42,14 @@ export default {
 
     "tax.edit.percentage": "Porcentaje",
     "tax.edit.deductible": "Impuesto acreditable",
-    "tax.edit.description": "Descripción"
+    "tax.edit.description": "Descripción",
+
+    "warehouse.edit.address": "Direción",
+    "warehouse.edit.observations": "Observación",
+    "warehouse.edit.header.edit": "Editar Almacén",
+    "warehouse.edit.header.new": "Nuevo Almacén",
+    "warehouse.select.initialQuantity": "Cantidad Inicial",
+    "warehouse.field.warehouse": "Almacén",
+    "warehouse.edit.add": "Agregar Nuevo Almacén"
   }
 };

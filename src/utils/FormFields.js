@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import TextFieldM from "@material-ui/core/TextField";
 import CheckboxM from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
@@ -12,6 +12,8 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import CurrencyContext from "contexts/CurrencyContext";
 
 import { injectIntl } from "react-intl";
 
@@ -21,13 +23,15 @@ export const PrepareDropDownOptions = data =>
 export const TextField = injectIntl(
   ({ field, form: { isSubmitting, errors, touched }, intl, ...props }) => {
     const hasError = !!errors[field.name] && touched[field.name];
-    return (
-      <FormControl error={hasError} style={{ width: "100%" }}>
-        <TextFieldM
-          // variant="outlined"
 
+    const { symbol } = useContext(CurrencyContext);
+
+    return (
+      <FormControl error={hasError} style={{ width: "100%", height: "65px" }}>
+        <TextFieldM
           {...field}
           {...props}
+          showsymbol={null}
           margin="dense"
           label={
             props.translation
@@ -38,7 +42,12 @@ export const TextField = injectIntl(
               : props.label
           }
           value={field.value ? field.value : ""}
-          inputProps={{
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                {props.showsymbol ? symbol : ""}
+              </InputAdornment>
+            ),
             autoComplete: "new-password",
             form: {
               autoComplete:
@@ -73,16 +82,29 @@ export const Checkbox = ({ field, form, ...props }) => {
 export const SelectField = ({
   field,
   form: { isSubmitting, errors, setFieldValue },
+  intl,
   ...props
 }) => {
   return (
-    <Grid container spacing={1} alignItems="flex-end">
-      <Grid item xs={props.addNew ? 11 : 12}>
-        <FormControl style={{ width: "100%", verticalAlign: "none" }}>
-          <InputLabel htmlFor={props.id}>{props.label}</InputLabel>
+    <Grid container spacing={0} alignItems="flex-end">
+      <Grid item xs={props.new ? 11 : 12}>
+        <FormControl
+          style={{ width: "100%", verticalAlign: "none", marginTop: "6px" }}
+        >
+          <InputLabel htmlFor={props.id}>
+            {/* {props.translation
+                ? intl.formatMessage({
+                    id: props.translation,
+                    defaultMessage: props.label
+                  })
+                : props.label} */}
+            {props.label}
+          </InputLabel>
           <Select
             {...field}
             {...props}
+            new={null} //avoid to render on the DOM
+            value={props.value || ""}
             onChange={e => {
               setFieldValue(field.name, e.target.value);
             }}
@@ -97,10 +119,10 @@ export const SelectField = ({
           </Select>
         </FormControl>
       </Grid>
-      {props.addNew && (
+      {props.new && (
         <Grid item xs={1}>
           <Tooltip title={props.tooltip}>
-            <IconButton size="small" color="secondary" onClick={props.addNew}>
+            <IconButton size="small" color="secondary" onClick={props.new}>
               <AddCircleIcon />
             </IconButton>
           </Tooltip>
@@ -113,7 +135,7 @@ export const SelectField = ({
 SelectField.prototype = {
   options: PropsType.array.isRequired,
   tooltip: PropsType.string,
-  addNew: PropsType.func
+  new: PropsType.func
 };
 
 const ITEM_HEIGHT = 48;
@@ -141,12 +163,13 @@ export const MultiSelect = ({
 
   return (
     <Grid container spacing={1} alignItems="flex-end">
-      <Grid item xs={props.addNew ? 11 : 12}>
-        <FormControl style={{ width: "100%" }}>
+      <Grid item xs={props.new ? 11 : 12}>
+        <FormControl style={{ width: "100%", marginTop: "6px" }}>
           <InputLabel htmlFor={props.id}>{props.label}</InputLabel>
           <Select
             {...field}
             {...props}
+            new={null}
             multiple
             value={selectedOptions}
             onChange={handleChange}
@@ -169,10 +192,10 @@ export const MultiSelect = ({
           </Select>
         </FormControl>
       </Grid>
-      {props.addNew && (
+      {props.new && (
         <Grid item xs={1}>
           <Tooltip title={props.tooltip}>
-            <IconButton size="small" color="secondary" onClick={props.addNew}>
+            <IconButton size="small" color="secondary" onClick={props.new}>
               <AddCircleIcon />
             </IconButton>
           </Tooltip>
@@ -185,5 +208,5 @@ export const MultiSelect = ({
 MultiSelect.prototype = {
   options: PropsType.array.isRequired,
   tooltip: PropsType.string,
-  addNew: PropsType.func
+  new: PropsType.func
 };

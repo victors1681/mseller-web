@@ -28,7 +28,7 @@ const App = () => (
   <DragDropContext>
     <MuiThemeProvider theme={theme}>
       <ApolloProvider client={client}>
-        <IntlProvider locale="es-US" messages={translation["es"]}>
+        <IntlProvider locale="es-DO" messages={translation["es"]}>
           <CurrencyProvider>
             <Routes />
           </CurrencyProvider>

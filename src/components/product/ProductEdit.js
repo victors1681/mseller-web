@@ -13,13 +13,12 @@ import { injectIntl } from "react-intl";
 import { Form, Formik, Field } from "formik";
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Typography from "@material-ui/core/Typography";
 import { showGraphQLError, showSuccess } from "utils/notifications";
-import Divider from "@material-ui/core/Divider";
-import * as Yup from "yup";
+//import * as Yup from "yup";
 import DropZone from "components/common/DropZone";
 import TaxDropDown from "components/Taxes/TaxDropDown";
-import UnitsSelect from "components/Units/UnitsSelect";
+
+import InventorySection from "./InventorySection";
 import {
   UpdateProduct,
   ProductById,
@@ -27,26 +26,20 @@ import {
   UploadImage
 } from "./schema/products.graphql";
 
-const ProductSchema = intl => {
-  const required = intl.formatMessage({
-    id: "common.required",
-    defaultMessage: "Required"
-  });
-
-  const onlyNumber = intl.formatMessage({
-    id: "common.onlyNumbers",
-    defaultMessage: "Only numbers are allowed"
-  });
-  return Yup.object().shape({
-    code: Yup.string().required(required),
-    name: Yup.string().required(required),
-    price1: Yup.number().required(onlyNumber),
-    price2: Yup.number().required(onlyNumber),
-    price3: Yup.number().required(onlyNumber),
-    price4: Yup.number().required(onlyNumber),
-    price5: Yup.number().required(onlyNumber),
-    price6: Yup.number().required(onlyNumber)
-  });
+const ProductSchema = () => {
+  // const required = intl.formatMessage({
+  //   id: "common.required",
+  //   defaultMessage: "Required"
+  // });
+  // const onlyNumber = intl.formatMessage({
+  //   id: "common.onlyNumbers",
+  //   defaultMessage: "Only numbers are allowed"
+  // });
+  // return Yup.object().shape({
+  //   code: Yup.string().required(required),
+  //   name: Yup.string().required(required),
+  //   price1: Yup.number().required(onlyNumber),
+  // });
 };
 const useStyles = makeStyles(theme => ({
   progress: {
@@ -162,6 +155,10 @@ const ProductEdit = ({
           validationSchema={ProductSchema(intl)}
           initialValues={{
             ...dataProduct,
+            warehouses: [
+              { id: "peLhWBEUC", name: "test2", initialQuantity: 22 },
+              { id: "AvL9bPiey", name: "test2", initialQuantity: 5 }
+            ],
             status: edit ? dataProduct.status : true
           }}
         >
@@ -212,6 +209,7 @@ const ProductEdit = ({
                   <Grid item xs={6} sm={2}>
                     <Field
                       required
+                      showsymbol
                       id="price1"
                       name="price1"
                       translation="common.price1"
@@ -237,9 +235,6 @@ const ProductEdit = ({
                     <TaxDropDown />
                   </Grid>
                   <Grid item xs={12} sm={3}>
-                    <UnitsSelect />
-                  </Grid>
-                  <Grid item xs={12} sm={3}>
                     <Field
                       fullWidth
                       name="barCode"
@@ -262,15 +257,8 @@ const ProductEdit = ({
                     />
                   </Grid>
 
-                  <Grid item xs={12} sm={12}>
-                    <Typography
-                      color="textSecondary"
-                      variant="body1"
-                      className={classes.paddingBottom}
-                    >
-                      Optional Parameters
-                    </Typography>
-                    <Divider />
+                  <Grid item xs={12}>
+                    <InventorySection {...props} />
                   </Grid>
 
                   <Grid item xs={12}>
@@ -301,7 +289,7 @@ const ProductEdit = ({
                   color="primary"
                   variant="contained"
                   disabled={
-                    !props.dirty || props.isSubmitting || !props.isValid
+                    !props.dirty || props.isSubmitting //|| !props.isValid
                   }
                   type="submit"
                 >

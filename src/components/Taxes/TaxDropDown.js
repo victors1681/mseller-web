@@ -36,7 +36,7 @@ const TaxDropDown = ({ data, data: { taxes } }) => {
         component={MultiSelect}
         autoComplete="off"
         tooltip="Add New Tax"
-        addNew={handleNew}
+        new={handleNew}
       />
     </React.Fragment>
   );

@@ -30,7 +30,7 @@ const UnitsSelect = ({ data, data: { units } }) => {
         component={SelectField}
         autoComplete="off"
         tooltip="Add New Unit"
-        addNew={handleNew}
+        new={handleNew}
       />
     </React.Fragment>
   );
