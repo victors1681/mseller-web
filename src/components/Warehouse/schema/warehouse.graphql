@@ -1,0 +1,24 @@
+query Warehouse {
+  warehouseAll {
+    id
+    name
+    observations
+    address
+  }
+}
+
+mutation AddWarehouse(
+  $id: ID
+  $name: String
+  $observations: String
+  $address: String
+) {
+  addWarehouse(
+    warehouse: {
+      id: $id
+      name: $name
+      observations: $observations
+      address: $address
+    }
+  )
+}
