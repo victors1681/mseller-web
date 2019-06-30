@@ -6,6 +6,8 @@ export default {
     "common.required": "Requerido",
     "common.onlyNumbers": "Campo Numerico",
     "common.edit": "Editar",
+    "common.type": "Tipo",
+    "common.none": "Ninguno",
     "common.create": "Crear",
     "common.cancel": "Cancelar",
     "common.tax": "Impuesto",
@@ -43,6 +45,7 @@ export default {
     "tax.edit.percentage": "Porcentaje",
     "tax.edit.deductible": "Impuesto acreditable",
     "tax.edit.description": "Descripción",
+    "tax.dropDown.label": "Impuesto",
 
     "warehouse.edit.address": "Direción",
     "warehouse.edit.observations": "Observación",
@@ -50,6 +53,12 @@ export default {
     "warehouse.edit.header.new": "Nuevo Almacén",
     "warehouse.select.initialQuantity": "Cantidad Inicial",
     "warehouse.field.warehouse": "Almacén",
-    "warehouse.edit.add": "Agregar Nuevo Almacén"
+    "warehouse.edit.add": "Agregar Nuevo Almacén",
+
+    "priceList.select": "Lista de Precio",
+    "priceList.amount": "Monto",
+    "priceList.percentage": "Porcentaje",
+    "priceList.edit.header.edit": "Editando Lista de precio",
+    "priceList.edit.header.new": "Nueva Lista de Precio"
   }
 };

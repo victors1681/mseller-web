@@ -76,7 +76,6 @@ const WarehouseMultiField = ({ intl, data, values }) => {
                   </Grid>
                   <Grid item xs={4}>
                     <Field
-                      showsymbol
                       required
                       id={`initialQuantity.${index}`}
                       // name={`initialQuantity.${index}`}

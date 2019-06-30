@@ -32,6 +32,7 @@ export const TextField = injectIntl(
           {...field}
           {...props}
           showsymbol={null}
+          customsymbol={null}
           margin="dense"
           label={
             props.translation
@@ -43,9 +44,13 @@ export const TextField = injectIntl(
           }
           value={field.value ? field.value : ""}
           InputProps={{
-            startAdornment: (
+            startAdornment: (props.showsymbol || props.customsymbol) && (
               <InputAdornment position="start">
-                {props.showsymbol ? symbol : ""}
+                {props.showsymbol
+                  ? symbol
+                  : props.customsymbol
+                  ? props.customsymbol
+                  : ""}
               </InputAdornment>
             ),
             autoComplete: "new-password",
@@ -82,7 +87,6 @@ export const Checkbox = ({ field, form, ...props }) => {
 export const SelectField = ({
   field,
   form: { isSubmitting, errors, setFieldValue },
-  intl,
   ...props
 }) => {
   return (
@@ -104,7 +108,7 @@ export const SelectField = ({
             {...field}
             {...props}
             new={null} //avoid to render on the DOM
-            value={props.value || ""}
+            value={field.value || ""}
             onChange={e => {
               setFieldValue(field.name, e.target.value);
             }}
@@ -151,14 +155,11 @@ const MenuProps = {
 
 export const MultiSelect = ({
   field,
-  form: { isSubmitting, errors },
+  form: { isSubmitting, errors, setFieldValue },
   ...props
 }) => {
-  const [selectedOptions, setSelectedOptions] = React.useState([]);
-
   function handleChange(event) {
-    setSelectedOptions(event.target.value);
-    // setFieldValue(field.name, event.target.value);
+    setFieldValue(field.name, event.target.value);
   }
 
   return (
@@ -171,7 +172,6 @@ export const MultiSelect = ({
             {...props}
             new={null}
             multiple
-            value={selectedOptions}
             onChange={handleChange}
             renderValue={selected =>
               (props.options || [])
@@ -184,8 +184,8 @@ export const MultiSelect = ({
             disabled={isSubmitting || props.disabled}
           >
             {(props.options || []).map(m => (
-              <MenuItem key={m.value} value={m.value}>
-                <CheckboxM checked={selectedOptions.indexOf(m.value) > -1} />
+              <MenuItem key={m.value} value={m.value} disabled={!!m.disabled}>
+                <CheckboxM checked={field.value.indexOf(m.value) > -1} />
                 <ListItemText primary={m.label} />
               </MenuItem>
             ))}

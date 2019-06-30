@@ -8,7 +8,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { injectIntl } from "react-intl";
 import { Form, Formik, Field } from "formik";
 import Grid from "@material-ui/core/Grid";
@@ -17,7 +16,7 @@ import { showGraphQLError, showSuccess } from "utils/notifications";
 //import * as Yup from "yup";
 import DropZone from "components/common/DropZone";
 import TaxDropDown from "components/Taxes/TaxDropDown";
-
+import PriceMultiField from "./PriceMultiField";
 import InventorySection from "./InventorySection";
 import {
   UpdateProduct,
@@ -155,6 +154,8 @@ const ProductEdit = ({
           validationSchema={ProductSchema(intl)}
           initialValues={{
             ...dataProduct,
+            price: [{ idPriceList: "zGDBA2_ra", price: 33 }],
+            tax: ["none"],
             warehouses: [
               { id: "peLhWBEUC", name: "test2", initialQuantity: 22 },
               { id: "AvL9bPiey", name: "test2", initialQuantity: 5 }
@@ -163,7 +164,13 @@ const ProductEdit = ({
           }}
         >
           {props => (
-            <Form noValidate onSubmit={props.handleSubmit}>
+            <Form
+              noValidate
+              onSubmit={e => {
+                e.stopPropagation();
+                props.handleSubmit(e);
+              }}
+            >
               <DialogTitle id="form-dialog-title">
                 {edit
                   ? intl.formatMessage(
@@ -206,33 +213,12 @@ const ProductEdit = ({
                     />
                   </Grid>
 
-                  <Grid item xs={6} sm={2}>
-                    <Field
-                      required
-                      showsymbol
-                      id="price1"
-                      name="price1"
-                      translation="common.price1"
-                      label="Price 1"
-                      fullWidth
-                      autoComplete="off"
-                      type="number"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      size="small"
-                      color="secondary"
-                      className={classes.button}
-                    >
-                      <AddCircleIcon className={classes.leftIcon} />
-                      Add Price List
-                    </Button>
+                  <Grid item xs={6} sm={6}>
+                    <PriceMultiField {...props} />
                   </Grid>
 
                   <Grid item xs={12} sm={2}>
-                    <TaxDropDown />
+                    <TaxDropDown {...props} />
                   </Grid>
                   <Grid item xs={12} sm={3}>
                     <Field

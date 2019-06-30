@@ -1,0 +1,25 @@
+query PriceList {
+  priceListAll {
+    id
+    name
+    type
+    percentage
+    status
+  }
+}
+
+mutation AddPriceList(
+  $name: String
+  $type: String
+  $percentage: Float
+  $status: Boolean
+) {
+  addPriceList(
+    priceList: {
+      name: $name
+      type: $type
+      percentage: $percentage
+      status: $status
+    }
+  )
+}
