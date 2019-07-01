@@ -13,9 +13,9 @@ import { injectIntl } from "react-intl";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import Grid from "@material-ui/core/Grid";
-import { Warehouse, AddWarehouse } from "./schema/warehouse.graphql";
+import { Categories, AddCategory } from "./schema/category.graphql";
 
-const WarehouseSchema = intl => {
+const CategorySchema = intl => {
   const required = intl.formatMessage({
     id: "common.required",
     defaultMessage: "Required"
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WarehouseEdit = ({ data, addWarehouse, edit, closeModal, intl }) => {
+const CategoryEdit = ({ data, addCategory, edit, closeModal, intl }) => {
   const classes = useStyles();
   const onHandleSubmit = () => (
     values,
@@ -41,7 +41,7 @@ const WarehouseEdit = ({ data, addWarehouse, edit, closeModal, intl }) => {
     if (edit) {
       console.log("TODO: EDIT");
     } else {
-      addWarehouse({ variables: values })
+      addCategory({ variables: values })
         .then(() => {
           closeModal();
           resetForm(values);
@@ -70,24 +70,25 @@ const WarehouseEdit = ({ data, addWarehouse, edit, closeModal, intl }) => {
       >
         <Formik
           onSubmit={onHandleSubmit()}
-          validationSchema={WarehouseSchema(intl)}
+          validationSchema={CategorySchema(intl)}
         >
           {props => (
             <Form
               noValidate
               onSubmit={e => {
-                e.stopPropagation(), props.handleSubmit(e);
+                e.stopPropagation();
+                props.handleSubmit(e);
               }}
             >
               <DialogTitle id="form-dialog-title">
                 {edit
                   ? intl.formatMessage({
-                      id: "warehouse.edit.header.edit",
+                      id: "category.edit.header.edit",
                       defaultMessage: "Editing "
                     })
                   : intl.formatMessage({
-                      id: "warehouse.edit.header.new",
-                      defaultMessage: "Create New Warehouse"
+                      id: "category.edit.header.new",
+                      defaultMessage: "Create New Category"
                     })}
               </DialogTitle>
               <DialogContent>
@@ -106,22 +107,11 @@ const WarehouseEdit = ({ data, addWarehouse, edit, closeModal, intl }) => {
                   </Grid>
                   <Grid item xs={12}>
                     <Field
-                      id="address"
-                      name="address"
-                      translation="warehouse.edit.address"
-                      label="Address"
-                      fullWidth
-                      autoComplete="off"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Field
                       multiline
-                      id="observations"
-                      name="observations"
-                      translation="tax.edit.observations"
-                      label="Observations"
+                      id="description"
+                      name="description"
+                      translation="common.description"
+                      label="Description"
                       fullWidth
                       autoComplete="off"
                       component={TextField}
@@ -163,9 +153,9 @@ const WarehouseEdit = ({ data, addWarehouse, edit, closeModal, intl }) => {
 
 export default injectIntl(
   compose(
-    graphql(Warehouse, {
+    graphql(Categories, {
       options: props => ({ variables: { id: props.edit } })
     }),
-    graphql(AddWarehouse, { name: "addWarehouse" })
-  )(WarehouseEdit)
+    graphql(AddCategory, { name: "addCategory" })
+  )(CategoryEdit)
 );

@@ -1,0 +1,11 @@
+query Categories {
+  categories {
+    id
+    name
+    description
+  }
+}
+
+mutation AddCategory($id: ID, $name: String, $description: String) {
+  addCategory(category: { id: $id, name: $name, description: $description })
+}

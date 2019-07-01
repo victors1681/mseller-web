@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button";
 import { TextField, Checkbox } from "utils/FormFields";
 import Dialog from "@material-ui/core/Dialog";
 import { compose, graphql } from "react-apollo";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -15,7 +17,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { showGraphQLError, showSuccess } from "utils/notifications";
 //import * as Yup from "yup";
 import DropZone from "components/common/DropZone";
-import TaxDropDown from "components/Taxes/TaxDropDown";
+
+import CategorySelect from "components/Category/CategorySelect";
 import PriceMultiField from "./PriceMultiField";
 import InventorySection from "./InventorySection";
 import {
@@ -52,6 +55,9 @@ const useStyles = makeStyles(theme => ({
   },
   leftIcon: {
     marginRight: theme.spacing(1)
+  },
+  priceBackground: {
+    background: theme.palette.background.default
   }
 }));
 
@@ -213,30 +219,40 @@ const ProductEdit = ({
                     />
                   </Grid>
 
-                  <Grid item xs={6} sm={6}>
-                    <PriceMultiField {...props} />
-                  </Grid>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6} sm={6}>
+                      <Card>
+                        <CardContent>
+                          <PriceMultiField {...props} />
+                        </CardContent>
+                      </Card>
+                    </Grid>
 
-                  <Grid item xs={12} sm={2}>
-                    <TaxDropDown {...props} />
+                    <Grid item xs={6} sm={6}>
+                      <Card>
+                        <CardContent>
+                          <CategorySelect {...props} />
+
+                          <Field
+                            fullWidth
+                            name="barCode"
+                            label="UPC - EAN Code"
+                            translation="common.barCode"
+                            id="barCode"
+                            autoComplete="false"
+                            component={TextField}
+                          />
+                        </CardContent>
+                      </Card>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={3}>
+                  <Grid item xs={12}>
                     <Field
-                      fullWidth
-                      name="barCode"
-                      label="UPC - EAN Code"
-                      translation="common.barCode"
-                      id="barCode"
-                      autoComplete="false"
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={2}>
-                    <Field
-                      id="classification"
-                      name="classification"
-                      translation="client.edit.classification"
-                      label="Classification"
+                      multiline
+                      id="description"
+                      name="description"
+                      translation="common.description"
+                      label="Description"
                       fullWidth
                       autoComplete="off"
                       component={TextField}

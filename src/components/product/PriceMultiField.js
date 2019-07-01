@@ -7,6 +7,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import PriceListSelect from "components/PriceList/PriceListSelect";
 import Grid from "@material-ui/core/Grid";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import TaxDropDown from "components/Taxes/TaxDropDown";
 import shortId from "shortid";
 import PriceListEdit from "components/PriceList/PriceListEdit";
 import { compose, graphql } from "react-apollo";
@@ -19,10 +20,13 @@ const useStyles = makeStyles(theme => ({
   },
   buttons: {
     textAlign: "center"
+  },
+  align: {
+    textAlign: "center"
   }
 }));
 
-const PriceMultiField = ({ intl, data, setFieldValue }) => {
+const PriceMultiField = ({ intl, data, setFieldValue, ...props }) => {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -57,98 +61,123 @@ const PriceMultiField = ({ intl, data, setFieldValue }) => {
 
   return (
     <React.Fragment>
-      <Button
-        size="small"
-        color="secondary"
-        className={classes.button}
-        onClick={handleNew}
-      >
-        <AddCircleIcon className={classes.leftIcon} />
-
-        {intl.formatMessage({
-          id: "price.edit.add",
-          defaultMessage: "Add New PriceList "
-        })}
-      </Button>
       {open && <PriceListEdit closeModal={closeEditMode} />}
 
-      <Field
-        required
-        id="defaultPrice"
-        showsymbol
-        name="defaultPrice"
-        translation="price.select.price"
-        label="Initial Price"
-        fullWidth
-        autoComplete="off"
-        component={TextField}
-        type="number"
-      />
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        direction="row"
+        spacing={2}
+      >
+        <Grid item xs={6}>
+          <Field
+            required
+            id="defaultPrice"
+            showsymbol
+            name="defaultPrice"
+            translation="price.select.price"
+            label="Initial Price"
+            fullWidth
+            autoComplete="off"
+            component={TextField}
+            type="number"
+          />
+        </Grid>
 
-      <FieldArray
-        name="price"
-        component={({ form: { values }, remove, insert, push }) => (
-          <div>
-            {values.price && values.price.length > 0 ? (
-              values.price.map((price, index) => {
-                const listPriceData = getPriceListData(price.idPriceList);
+        <Grid item xs={6} className={classes.align}>
+          <TaxDropDown {...props} />
+        </Grid>
 
-                const disableField =
-                  listPriceData && listPriceData.type === "percentage";
+        <Grid item xs={12}>
+          <FieldArray
+            name="price"
+            component={({ form: { values }, remove, insert, push }) => (
+              <div>
+                {values.price && values.price.length > 0 ? (
+                  values.price.map((price, index) => {
+                    const listPriceData = getPriceListData(price.idPriceList);
 
-                getPercentagePrice(listPriceData, values, price, index);
+                    const disableField =
+                      listPriceData && listPriceData.type === "percentage";
 
-                return (
-                  <Grid
-                    container
-                    key={shortId()}
-                    spacing={2}
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                  >
-                    <Grid item xs={5}>
-                      <PriceListSelect
-                        data={data}
-                        name={`price[${index}].idPriceList`}
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Field
-                        required
-                        id={`price.${index}`}
-                        showsymbol
-                        name={`price[${index}].price`}
-                        translation="price.select.price"
-                        label="Initial Quantity"
-                        fullWidth
-                        autoComplete="off"
-                        component={TextField}
-                        type="number"
-                        disabled={disableField}
-                      />
-                    </Grid>
-                    <Grid item xs={3} className={classes.buttons}>
-                      <ButtonGroup
-                        size="small"
-                        aria-label="Small outlined button group"
+                    getPercentagePrice(listPriceData, values, price, index);
+
+                    return (
+                      <Grid
+                        container
+                        key={shortId()}
+                        spacing={2}
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
                       >
-                        <Button onClick={() => remove(index)}>-</Button>
-                        <Button onClick={() => insert(index, "")}>+</Button>
-                      </ButtonGroup>
-                    </Grid>
-                  </Grid>
-                );
-              })
-            ) : (
-              <button type="button" onClick={() => push("")}>
-                {/* show this when user has removed all friends from the list */}
-                Add a friend
-              </button>
+                        <Grid item xs={5}>
+                          <PriceListSelect
+                            data={data}
+                            name={`price[${index}].idPriceList`}
+                          />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Field
+                            required
+                            id={`price.${index}`}
+                            showsymbol
+                            name={`price[${index}].price`}
+                            translation="price.select.price"
+                            label="Initial Quantity"
+                            fullWidth
+                            autoComplete="off"
+                            component={TextField}
+                            type="number"
+                            disabled={disableField}
+                          />
+                        </Grid>
+                        <Grid item xs={3} className={classes.buttons}>
+                          <ButtonGroup
+                            size="small"
+                            aria-label="Small outlined button group"
+                          >
+                            <Button onClick={() => remove(index)}>-</Button>
+                            <Button onClick={() => insert(index, "")}>+</Button>
+                          </ButtonGroup>
+                        </Grid>
+                      </Grid>
+                    );
+                  })
+                ) : (
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    onClick={() => push("")}
+                    style={{ width: "100%" }}
+                  >
+                    <AddCircleIcon className={classes.leftIcon} />
+                    {intl.formatMessage({
+                      id: "priceList.edit.addMore",
+                      defaultMessage: "add More Prices"
+                    })}
+                  </Button>
+                )}
+                <Button
+                  size="small"
+                  variant="outlined"
+                  className={classes.button}
+                  onClick={handleNew}
+                  style={{ width: "100%", marginTop: "5px" }}
+                >
+                  <AddCircleIcon className={classes.leftIcon} />
+
+                  {intl.formatMessage({
+                    id: "priceList.edit.add",
+                    defaultMessage: "Create New PriceList "
+                  })}
+                </Button>
+              </div>
             )}
-          </div>
-        )}
-      />
+          />
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };

@@ -27,46 +27,53 @@ export const TextField = injectIntl(
     const { symbol } = useContext(CurrencyContext);
 
     return (
-      <FormControl error={hasError} style={{ width: "100%", height: "65px" }}>
-        <TextFieldM
-          {...field}
-          {...props}
-          showsymbol={null}
-          customsymbol={null}
-          margin="dense"
-          label={
-            props.translation
-              ? intl.formatMessage({
-                  id: props.translation,
-                  defaultMessage: props.label
-                })
-              : props.label
-          }
-          value={field.value ? field.value : ""}
-          InputProps={{
-            startAdornment: (props.showsymbol || props.customsymbol) && (
-              <InputAdornment position="start">
-                {props.showsymbol
-                  ? symbol
-                  : props.customsymbol
-                  ? props.customsymbol
-                  : ""}
-              </InputAdornment>
-            ),
-            autoComplete: "new-password",
-            form: {
-              autoComplete:
-                props.autoComplete === "off" ? "off" : props.autoComplete
-            }
-          }}
-          error={hasError}
-          disabled={isSubmitting || props.disabled}
-          type={props.type ? props.type : "text"}
-        />
-        <FormHelperText id="component-error-text">
-          {hasError && errors[field.name]}
-        </FormHelperText>
-      </FormControl>
+      <Grid container spacing={0} alignItems="flex-end">
+        <Grid item xs={12}>
+          <FormControl
+            error={hasError}
+            style={{ width: "100%", height: "65px" }}
+          >
+            <TextFieldM
+              {...field}
+              {...props}
+              showsymbol={null}
+              customsymbol={null}
+              margin="dense"
+              label={
+                props.translation
+                  ? intl.formatMessage({
+                      id: props.translation,
+                      defaultMessage: props.label
+                    })
+                  : props.label
+              }
+              value={field.value ? field.value : ""}
+              InputProps={{
+                startAdornment: (props.showsymbol || props.customsymbol) && (
+                  <InputAdornment position="start">
+                    {props.showsymbol
+                      ? symbol
+                      : props.customsymbol
+                      ? props.customsymbol
+                      : ""}
+                  </InputAdornment>
+                ),
+                autoComplete: "new-password",
+                form: {
+                  autoComplete:
+                    props.autoComplete === "off" ? "off" : props.autoComplete
+                }
+              }}
+              error={hasError}
+              disabled={isSubmitting || props.disabled}
+              type={props.type ? props.type : "text"}
+            />
+            <FormHelperText id="component-error-text">
+              {hasError && errors[field.name]}
+            </FormHelperText>
+          </FormControl>
+        </Grid>
+      </Grid>
     );
   }
 );
@@ -86,15 +93,14 @@ export const Checkbox = ({ field, form, ...props }) => {
 
 export const SelectField = ({
   field,
-  form: { isSubmitting, errors, setFieldValue },
+  form: { isSubmitting, errors, touched, setFieldValue },
   ...props
 }) => {
+  const hasError = !!errors[field.name] && touched[field.name];
   return (
     <Grid container spacing={0} alignItems="flex-end">
       <Grid item xs={props.new ? 11 : 12}>
-        <FormControl
-          style={{ width: "100%", verticalAlign: "none", marginTop: "6px" }}
-        >
+        <FormControl style={{ width: "100%", verticalAlign: "none" }}>
           <InputLabel htmlFor={props.id}>
             {/* {props.translation
                 ? intl.formatMessage({
@@ -121,10 +127,13 @@ export const SelectField = ({
               </MenuItem>
             ))}
           </Select>
+          <FormHelperText id="component-error-text">
+            {hasError && errors[field.name]}
+          </FormHelperText>
         </FormControl>
       </Grid>
       {props.new && (
-        <Grid item xs={1}>
+        <Grid item xs={1} style={{ paddingBottom: "19px" }}>
           <Tooltip title={props.tooltip}>
             <IconButton size="small" color="secondary" onClick={props.new}>
               <AddCircleIcon />
@@ -165,7 +174,9 @@ export const MultiSelect = ({
   return (
     <Grid container spacing={1} alignItems="flex-end">
       <Grid item xs={props.new ? 11 : 12}>
-        <FormControl style={{ width: "100%", marginTop: "6px" }}>
+        <FormControl
+          style={{ width: "100%", marginTop: "6px", marginBottom: "15px" }}
+        >
           <InputLabel htmlFor={props.id}>{props.label}</InputLabel>
           <Select
             {...field}
@@ -193,7 +204,7 @@ export const MultiSelect = ({
         </FormControl>
       </Grid>
       {props.new && (
-        <Grid item xs={1}>
+        <Grid item xs={1} style={{ paddingBottom: "19px" }}>
           <Tooltip title={props.tooltip}>
             <IconButton size="small" color="secondary" onClick={props.new}>
               <AddCircleIcon />

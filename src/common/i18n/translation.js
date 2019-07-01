@@ -22,6 +22,7 @@ export default {
     "common.price4": "Precio 4",
     "common.price5": "Precio 5",
     "common.price6": "Precio 6",
+    "common.description": "Descripción",
     "common.name": "Nombre",
     "common.code": "Código",
     "nav.products": "Productos",
@@ -55,10 +56,14 @@ export default {
     "warehouse.field.warehouse": "Almacén",
     "warehouse.edit.add": "Agregar Nuevo Almacén",
 
+    "priceList.edit.addMore": "Agregar más precios",
     "priceList.select": "Lista de Precio",
     "priceList.amount": "Monto",
     "priceList.percentage": "Porcentaje",
     "priceList.edit.header.edit": "Editando Lista de precio",
-    "priceList.edit.header.new": "Nueva Lista de Precio"
+    "priceList.edit.header.new": "Nueva Lista de Precio",
+    "priceList.edit.add": "Crear lista de Precio",
+    "category.edit.header.edit": "Editando",
+    "category.edit.header.new": "Nueva Categoría"
   }
 };
