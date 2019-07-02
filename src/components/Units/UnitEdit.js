@@ -84,7 +84,13 @@ const UnitEdit = ({ data, addUnit, edit, closeModal, intl }) => {
           validationSchema={UnitsSchema(intl)}
         >
           {props => (
-            <Form noValidate onSubmit={props.handleSubmit}>
+            <Form
+              noValidate
+              onSubmit={e => {
+                e.stopPropagation();
+                props.handleSubmit(e);
+              }}
+            >
               <DialogTitle id="form-dialog-title">
                 {edit
                   ? intl.formatMessage({

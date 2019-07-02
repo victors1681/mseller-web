@@ -43,23 +43,17 @@ mutation UploadImage($file: Upload!) {
   }
 }
 
- 
 mutation AddProduct(
   $code: String!
   $barCode: String
   $name: String!
-  $classification: String
+  $description: String
   $status: Boolean
-  $price:[PriceInput]
-  $saleUnit: String
-  $tax: Float
-  $stock: Float
-  $field1: String
-  $field2: String
-  $field3: String
-  $field4: Float
-  $field5: Float
-  $field6: Float
+  $price: [PriceInput]
+  $tax: [TaxInput]
+  $category: CategoryInput
+  $inventory: InventoryInput
+  $customField: [CustomFieldInput]
   $images: [Upload]
 ) {
   addProduct(
@@ -67,18 +61,13 @@ mutation AddProduct(
       code: $code
       barCode: $barCode
       name: $name
-      classification: $classification
+      description: $description
       status: $status
       price: $price
-      saleUnit: $saleUnit
       tax: $tax
-      stock: $stock
-      field1: $field1
-      field2: $field2
-      field3: $field3
-      field4: $field4
-      field5: $field5
-      field6: $field6
+      category: $category
+      inventory: $inventory
+      customField: $customField
       images: $images
     }
   )

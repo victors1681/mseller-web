@@ -76,7 +76,8 @@ const WarehouseEdit = ({ data, addWarehouse, edit, closeModal, intl }) => {
             <Form
               noValidate
               onSubmit={e => {
-                e.stopPropagation(), props.handleSubmit(e);
+                e.stopPropagation();
+                props.handleSubmit(e);
               }}
             >
               <DialogTitle id="form-dialog-title">

@@ -15,4 +15,5 @@ export const showGraphQLError = ({ graphQLErrors, networkError }) => {
   }
 };
 
+export const showError = msg => toast.error(msg);
 export default toast;

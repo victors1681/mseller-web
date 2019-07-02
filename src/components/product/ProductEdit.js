@@ -58,6 +58,11 @@ const useStyles = makeStyles(theme => ({
   },
   priceBackground: {
     background: theme.palette.background.default
+  },
+  bigAvatar: {
+    margin: "auto",
+    width: 80,
+    height: 80
   }
 }));
 
@@ -84,18 +89,24 @@ const ProductEdit = ({
   ) => {
     values = {
       ...values,
+      category: {
+        id: values.category
+      },
       price: [
         {
-          idPriceList: "123123",
-          price: values.price1,
+          idPriceList: "0", //General default
+          price: values.defaultPrice,
           name: "general"
         },
-        {
-          idPriceList: "23423324",
-          price: values.price2,
-          name: "Distributor"
-        }
-      ]
+        ...values.price
+      ],
+      tax: values.tax.map(t => ({ id: t })),
+      inventory: {
+        unit: values.unit,
+        // unitCost: values.unitCost,
+        // initialQuantity: values.initialQuantity,
+        warehouses: values.warehouses
+      }
     };
 
     //Perform Login
@@ -160,7 +171,13 @@ const ProductEdit = ({
           validationSchema={ProductSchema(intl)}
           initialValues={{
             ...dataProduct,
-            price: [{ idPriceList: "zGDBA2_ra", price: 33 }],
+            price: [],
+            presentImages: [
+              {
+                img:
+                  "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg"
+              }
+            ],
             tax: ["none"],
             warehouses: [
               { id: "peLhWBEUC", name: "test2", initialQuantity: 22 },
@@ -206,7 +223,7 @@ const ProductEdit = ({
                       disabled={!!edit}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={10}>
+                  <Grid item xs={12} sm={8}>
                     <Field
                       required
                       id="name"
@@ -216,6 +233,20 @@ const ProductEdit = ({
                       fullWidth
                       autoComplete="cname"
                       component={TextField}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={2}>
+                    {/* <DropZone
+                      mutation={uploadImage}
+                      handleImages={handleImages}
+                    /> */}
+                    <Field
+                      id="images"
+                      name="images"
+                      translation="common.name"
+                      component={DropZone}
+                      uploadImage={uploadImage}
+                      handleImages={handleImages}
                     />
                   </Grid>
 
@@ -274,10 +305,6 @@ const ProductEdit = ({
                       })}
                     />
                   </Grid>
-                  <DropZone
-                    mutation={uploadImage}
-                    handleImages={handleImages}
-                  />
                 </Grid>
               </DialogContent>
               <DialogActions>
