@@ -46,7 +46,7 @@ const WarehouseMultiField = ({ intl, data, values }) => {
         <AddCircleIcon className={classes.leftIcon} />
 
         {intl.formatMessage({
-          id: "warehouse.edit.add",
+          id: "warehouse.edit.create",
           defaultMessage: "Add New Warehouse "
         })}
       </Button>
@@ -109,10 +109,19 @@ const WarehouseMultiField = ({ intl, data, values }) => {
                 </Grid>
               ))
             ) : (
-              <button type="button" onClick={() => arrayHelpers.push("")}>
-                {/* show this when user has removed all friends from the list */}
-                Add a friend
-              </button>
+              <Button
+                size="small"
+                color="primary"
+                className={classes.button}
+                onClick={() => arrayHelpers.push("")}
+              >
+                <AddCircleIcon className={classes.leftIcon} />
+
+                {intl.formatMessage({
+                  id: "warehouse.edit.add",
+                  defaultMessage: "Add New Warehouse "
+                })}
+              </Button>
             )}
           </div>
         )}

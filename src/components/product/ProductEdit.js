@@ -172,17 +172,8 @@ const ProductEdit = ({
           initialValues={{
             ...dataProduct,
             price: [],
-            presentImages: [
-              {
-                img:
-                  "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg"
-              }
-            ],
             tax: ["none"],
-            warehouses: [
-              { id: "peLhWBEUC", name: "test2", initialQuantity: 22 },
-              { id: "AvL9bPiey", name: "test2", initialQuantity: 5 }
-            ],
+            warehouses: [],
             status: edit ? dataProduct.status : true
           }}
         >

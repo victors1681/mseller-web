@@ -26,9 +26,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PriceMultiField = ({ intl, data, setFieldValue, ...props }) => {
+const PriceMultiField = ({ intl, data, ...props }) => {
   const classes = useStyles();
-
+  const { setFieldValue } = props;
   const [open, setOpen] = useState(false);
 
   const handleNew = () => {

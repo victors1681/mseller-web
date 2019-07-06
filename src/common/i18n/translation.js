@@ -54,7 +54,8 @@ export default {
     "warehouse.edit.header.new": "Nuevo Almacén",
     "warehouse.select.initialQuantity": "Cantidad Inicial",
     "warehouse.field.warehouse": "Almacén",
-    "warehouse.edit.add": "Agregar Nuevo Almacén",
+    "warehouse.edit.add": "Agregar Almacén",
+    "warehouse.edit.create": "Crear Nuevo Almacén",
 
     "priceList.edit.addMore": "Agregar más precios",
     "priceList.select": "Lista de Precio",

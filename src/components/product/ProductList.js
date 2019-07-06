@@ -11,12 +11,12 @@ import ProductEdit from "./ProductEdit";
 const ProductList = ({ data }) => {
   const columns = [
     { title: "code", field: "code" },
-    { title: "Unit", field: "saleUnit" },
+    { title: "Unit", field: "inventory.unit.shortName" },
     { title: "Name", field: "name" },
     {
-      title: "Price1",
-      field: "price1",
-      render: rowData => <Currency value={rowData.price1} />
+      title: "Price",
+      field: "price.price",
+      render: rowData => <Currency value={rowData.price[0].price} />
     },
     {
       title: "Stock",

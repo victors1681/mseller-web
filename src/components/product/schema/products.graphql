@@ -1,26 +1,47 @@
 fragment ProductDetail on Product {
   code
-  barCode
   name
-  classification
-  lastPurchase
+  description
+  barCode
   status
-  price1
-  price2
-  price3
-  price4
-  price5
-  price6
-  price7
-  saleUnit
-  tax
-  stock
-  field1
-  field2
-  field3
-  field4
-  field5
-  field6
+  price {
+    idPriceList
+    name
+    price
+  }
+  tax {
+    id
+    name
+    percentage
+    description
+    deductible
+  }
+  category {
+    id
+    name
+    description
+  }
+  inventory {
+    unit {
+      id
+      name
+      shortName
+    }
+    availableQuantity
+    unitCost
+    initialQuantity
+    warehouses {
+      id
+      name
+      availableQuantity
+      initialQuantity
+    }
+  }
+  customField {
+    key
+    value
+  }
+  images
 }
 
 query Products($code: String) {
@@ -77,47 +98,27 @@ mutation UpdateProduct(
   $code: String!
   $barCode: String
   $name: String!
-  $classification: String
+  $description: String
   $status: Boolean
-  $price1: Float
-  $price2: Float
-  $price3: Float
-  $price4: Float
-  $price5: Float
-  $price6: Float
-  $saleUnit: String
-  $tax: Float
-  $stock: Float
-  $field1: String
-  $field2: String
-  $field3: String
-  $field4: Float
-  $field5: Float
-  $field6: Float
-  $images: Upload
+  $price: [PriceInput]
+  $tax: [TaxInput]
+  $category: CategoryInput
+  $inventory: InventoryInput
+  $customField: [CustomFieldInput]
+  $images: [Upload]
 ) {
   updateProduct(
     product: {
       code: $code
       barCode: $barCode
       name: $name
-      classification: $classification
+      description: $description
       status: $status
-      price1: $price1
-      price2: $price2
-      price3: $price3
-      price4: $price4
-      price5: $price5
-      price6: $price6
-      saleUnit: $saleUnit
+      price: $price
       tax: $tax
-      stock: $stock
-      field1: $field1
-      field2: $field2
-      field3: $field3
-      field4: $field4
-      field5: $field5
-      field6: $field6
+      category: $category
+      inventory: $inventory
+      customField: $customField
       images: $images
     }
   )
