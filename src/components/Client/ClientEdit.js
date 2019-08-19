@@ -10,7 +10,8 @@ import { Form, Formik, Field } from "formik";
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import * as Yup from "yup";
@@ -301,7 +302,7 @@ const ClientEdit = ({ closeModal, edit, data, addNewClient, setErrors }) => {
     values,
     { setSubmitting, setStatus, resetForm, error }
   ) => {
-    //Perform Login
+    // Perform Login
     addNewClient({
       variables: {
         ...values,
@@ -312,8 +313,8 @@ const ClientEdit = ({ closeModal, edit, data, addNewClient, setErrors }) => {
       }
     })
       .then(result => {
-        Object.keys(values).forEach(key => (values[key] = ""));
-        resetForm(values);
+        // Object.keys(values).forEach(key => (values[key] = ""));
+        resetForm();
         showSuccess(`${result.data.addClient.name} created`);
         setStatus(true);
       })
@@ -330,7 +331,7 @@ const ClientEdit = ({ closeModal, edit, data, addNewClient, setErrors }) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Dialog
         open
         onClose={() => closeModal()}
@@ -363,7 +364,7 @@ const ClientEdit = ({ closeModal, edit, data, addNewClient, setErrors }) => {
           )}
         </Formik>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 };
 

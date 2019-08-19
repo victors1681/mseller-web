@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import MaterialTable from "material-table";
 import Icons from "utils/materialIcons";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import StatusColor from "components/common/StatusColor";
 import Currency from "components/common/Currency";
 import { FormattedNumber } from "react-intl";
@@ -39,11 +40,11 @@ const ProductList = ({ data }) => {
   const openEditMode = clientId => setEdit(clientId);
 
   const handleRowClick = (_, rowData) => {
-    openEditMode(rowData["code"]);
+    openEditMode(rowData.code);
   };
 
   return (
-    <React.Fragment>
+    <>
       <MaterialTable
         title=""
         columns={columns}
@@ -62,7 +63,7 @@ const ProductList = ({ data }) => {
           closeModal={closeEditMode}
         />
       )}
-    </React.Fragment>
+    </>
   );
 };
 

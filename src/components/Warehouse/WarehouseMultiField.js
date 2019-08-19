@@ -9,7 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import shortId from "shortid";
 import WarehouseEdit from "components/Warehouse/WarehouseEdit";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import { injectIntl } from "react-intl";
 import { Warehouse } from "./schema/warehouse.graphql";
 
@@ -36,7 +37,7 @@ const WarehouseMultiField = ({ intl, data, values }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Button
         size="small"
         color="secondary"
@@ -126,7 +127,7 @@ const WarehouseMultiField = ({ intl, data, values }) => {
           </div>
         )}
       />
-    </React.Fragment>
+    </>
   );
 };
 

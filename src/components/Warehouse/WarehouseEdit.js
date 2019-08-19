@@ -2,7 +2,8 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { TextField } from "utils/FormFields";
 import Dialog from "@material-ui/core/Dialog";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -61,7 +62,7 @@ const WarehouseEdit = ({ data, addWarehouse, edit, closeModal, intl }) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Dialog
         open
         onClose={() => closeModal()}
@@ -158,7 +159,7 @@ const WarehouseEdit = ({ data, addWarehouse, edit, closeModal, intl }) => {
           )}
         </Formik>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 };
 

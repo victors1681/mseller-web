@@ -16,17 +16,17 @@ const CurrencyProvider = ({ children }) => {
   const currency = localStorage.getItem("currency") || "USD";
 
   const data = {
-    currency, //: "DOP", //"USD",
+    currency, // : "DOP", //"USD",
     style: "currency",
-    symbol: getCurrencySymbol("en-US", currency) //dynamic en-US
+    symbol: getCurrencySymbol("en-US", currency) // dynamic en-US
   };
 
   // DR
-  //IntlProvider locale="es-DO"
+  // IntlProvider locale="es-DO"
   // currency: "DOP"
 
-  //US
-  //IntlProvider locale="en-US"
+  // US
+  // IntlProvider locale="en-US"
   // currency: "USD"
   return (
     <CurrencyContext.Provider name="Currency Provider" value={data}>

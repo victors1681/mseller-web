@@ -191,13 +191,13 @@ const AutoComplete = ({
   const classes = useStyles();
   const theme = useTheme();
 
-  const initialValue = props.options.find(f => f["value"] === field.value);
+  const initialValue = props.options.find(f => f.value === field.value);
 
   const [single, setSingle] = React.useState(initialValue);
 
-  function handleChangeSingle(value, field) {
+  function handleChangeSingle(value, currentField) {
     setSingle(value);
-    setFieldValue(field.name, value.value);
+    setFieldValue(currentField.name, value.value);
   }
 
   const selectStyles = {

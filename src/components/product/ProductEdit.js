@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { TextField, Checkbox } from "utils/FormFields";
 import Dialog from "@material-ui/core/Dialog";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,7 +16,7 @@ import { Form, Formik, Field } from "formik";
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { showGraphQLError, showSuccess } from "utils/notifications";
-//import * as Yup from "yup";
+// import * as Yup from "yup";
 import DropZone from "components/common/DropZone";
 
 import CategorySelect from "components/Category/CategorySelect";
@@ -94,7 +95,7 @@ const ProductEdit = ({
       },
       price: [
         {
-          idPriceList: "0", //General default
+          idPriceList: "0", // General default
           price: values.defaultPrice,
           name: "general"
         },
@@ -109,7 +110,7 @@ const ProductEdit = ({
       }
     };
 
-    //Perform Login
+    // Perform Login
     if (edit) {
       updateProduct({
         variables: { id: edit, ...values }
@@ -130,18 +131,19 @@ const ProductEdit = ({
         variables: { ...values, images }
       })
         .then(result => {
-          Object.keys(values).forEach(
-            key =>
-              (values[key] =
-                typeof values[key] === "string"
-                  ? ""
-                  : typeof values[key] === "boolean"
-                  ? true
-                  : typeof values[key] === "number"
-                  ? 0
-                  : "")
-          );
-          resetForm(values);
+          // Object.keys(values).forEach(
+          //   key =>
+          //     (values[key] =
+          //       typeof values[key] === "string"
+          //         ? ""
+          //         : typeof values[key] === "boolean"
+          //         ? true
+          //         : typeof values[key] === "number"
+          //         ? 0
+          //         : "")
+          // );
+
+          resetForm();
           showSuccess(result.data.addProduct);
           setStatus(true);
           reFetchProductList();
@@ -159,7 +161,7 @@ const ProductEdit = ({
   }
 
   return (
-    <React.Fragment>
+    <>
       <Dialog
         open
         onClose={() => closeModal()}
@@ -309,7 +311,7 @@ const ProductEdit = ({
                   color="primary"
                   variant="contained"
                   disabled={
-                    !props.dirty || props.isSubmitting //|| !props.isValid
+                    !props.dirty || props.isSubmitting // || !props.isValid
                   }
                   type="submit"
                 >
@@ -328,7 +330,7 @@ const ProductEdit = ({
           )}
         </Formik>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 };
 

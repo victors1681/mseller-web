@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const isExist = (value, arr) => {
-  for (let x = 0; x < arr.length; x++) {
+  for (let x = 0; x < arr.length; x += 1) {
     if (arr[x].name === value) {
       return true;
     }
@@ -52,7 +52,7 @@ const isExist = (value, arr) => {
 };
 
 function not(a, b) {
-  //return a.filter(value => b.indexOf(value.name) === -1);
+  // return a.filter(value => b.indexOf(value.name) === -1);
 
   return a.filter(role => {
     if (!isExist(role.name, b)) {
@@ -76,7 +76,7 @@ const Roles = ({ field, form: { setFieldValue }, ...props }) => {
 
   useEffect(() => {
     if (props.userRole.length) {
-      setFieldValue(field.name, props.userRole.map(r => r["_id"]));
+      setFieldValue(field.name, props.userRole.map(r => r._id));
     }
   }, []);
 
@@ -109,7 +109,7 @@ const Roles = ({ field, form: { setFieldValue }, ...props }) => {
   const handleCheckedRight = () => {
     const currentRole = right.concat(leftChecked);
     setRight(currentRole);
-    setFieldValue(field.name, currentRole.map(r => r["_id"]));
+    setFieldValue(field.name, currentRole.map(r => r._id));
 
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
@@ -120,7 +120,7 @@ const Roles = ({ field, form: { setFieldValue }, ...props }) => {
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
     field.value = not(right, rightChecked);
-    setFieldValue(field.name, field.value.map(r => r["_id"]));
+    setFieldValue(field.name, field.value.map(r => r._id));
   };
 
   const handleAllLeft = () => {
@@ -131,7 +131,7 @@ const Roles = ({ field, form: { setFieldValue }, ...props }) => {
   };
 
   const customList = (items, column) => (
-    <React.Fragment>
+    <>
       <Typography
         component="span"
         variant="subtitle1"
@@ -162,11 +162,11 @@ const Roles = ({ field, form: { setFieldValue }, ...props }) => {
           <ListItem />
         </List>
       </Paper>
-    </React.Fragment>
+    </>
   );
 
   return (
-    <React.Fragment>
+    <>
       <Box component="div" m={1} />
       <Grid
         container
@@ -221,7 +221,7 @@ const Roles = ({ field, form: { setFieldValue }, ...props }) => {
         </Grid>
         <Grid item>{customList(right, "right")}</Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 };
 

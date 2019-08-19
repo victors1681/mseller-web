@@ -4,7 +4,7 @@ const { ApolloClient } = require("apollo-client");
 const { InMemoryCache } = require("apollo-cache-inmemory");
 const { createUploadLink } = require("apollo-upload-client");
 
-const cache = new InMemoryCache();
+const Cache = new InMemoryCache();
 
 const GET_USER_DATA = gql`
   query getMember {
@@ -47,8 +47,8 @@ const initialStore = {
   isLoggedIn: false
 };
 
-cache.writeData({ data: initialStore });
+Cache.writeData({ data: initialStore });
 
-client.onResetStore(() => cache.writeData({ data: initialStore }));
+client.onResetStore(() => Cache.writeData({ data: initialStore }));
 
 export default client;

@@ -4,7 +4,7 @@ import { SelectField, PrepareDropDownOptions } from "utils/FormFields";
 
 const WarehouseSelect = ({ name, data }) => {
   return (
-    <React.Fragment>
+    <>
       <Field
         required
         id={name}
@@ -16,7 +16,7 @@ const WarehouseSelect = ({ name, data }) => {
         component={SelectField}
         autoComplete="off"
       />
-    </React.Fragment>
+    </>
   );
 };
 

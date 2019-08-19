@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Field } from "formik";
 import { SelectField, PrepareDropDownOptions } from "utils/FormFields";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import UnitEdit from "./UnitEdit";
 import { Units } from "./schema/units.graphql";
 
@@ -17,7 +18,7 @@ const UnitsSelect = ({ data, data: { units } }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       {unitOpen && <UnitEdit closeModal={closeEditMode} />}
       <Field
         required
@@ -32,7 +33,7 @@ const UnitsSelect = ({ data, data: { units } }) => {
         tooltip="Add New Unit"
         new={handleNew}
       />
-    </React.Fragment>
+    </>
   );
 };
 

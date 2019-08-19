@@ -16,22 +16,22 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 
 const tableIcons = {
   Add: AddBox,
-  Check: Check,
-  Clear: Clear,
+  Check,
+  Clear,
   Delete: DeleteOutline,
   DetailPanel: ChevronRight,
-  Edit: Edit,
+  Edit,
   Export: SaveAlt,
   Filter: FilterList,
-  FirstPage: FirstPage,
-  LastPage: LastPage,
+  FirstPage,
+  LastPage,
   NextPage: ChevronRight,
   PreviousPage: ChevronLeft,
   ResetSearch: Clear,
-  Search: Search,
+  Search,
   SortArrow: ArrowUpward,
   ThirdStateCheck: Remove,
-  ViewColumn: ViewColumn
+  ViewColumn
 };
 
 export default tableIcons;

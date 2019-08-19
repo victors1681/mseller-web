@@ -2,7 +2,8 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { TextField, Checkbox, SelectField } from "utils/FormFields";
 import Dialog from "@material-ui/core/Dialog";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -45,7 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 const businessOptions = options =>
   options.map(suggestion => ({
-    value: suggestion["_id"],
+    value: suggestion._id,
     label: suggestion.name
   }));
 
@@ -77,13 +78,13 @@ const UserEdit = ({
     values,
     { setSubmitting, setStatus, resetForm, error }
   ) => {
-    //Perform Login
+    // Perform Login
     if (edit) {
       updateUser({
         variables: { id: edit, ...values }
       })
         .then(result => {
-          resetForm(values);
+          resetForm();
           showSuccess(`${result.data.updateUser} `);
           setStatus(true);
           closeModal();
@@ -99,8 +100,7 @@ const UserEdit = ({
         variables: values
       })
         .then(result => {
-          Object.keys(values).forEach(key => (values[key] = ""));
-          resetForm(values);
+          resetForm();
           showSuccess(`${result.register.firstName} was created`);
           setStatus(true);
           reFetchUserList();
@@ -119,7 +119,7 @@ const UserEdit = ({
   }
 
   const customValidation = values => {
-    let errors = {};
+    const errors = {};
     if (values.roles.length === 0) {
       errors.roles = "You need to add a least one role";
     }
@@ -133,7 +133,7 @@ const UserEdit = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       <Dialog
         open
         onClose={() => closeModal()}
@@ -146,7 +146,7 @@ const UserEdit = ({
           validate={customValidation}
           initialValues={{
             ...dataUser,
-            business: (dataUser && dataUser.business["_id"]) || "",
+            business: (dataUser && dataUser.business._id) || "",
             status: edit ? dataUser.status : true
           }}
         >
@@ -311,7 +311,7 @@ const UserEdit = ({
           )}
         </Formik>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 };
 

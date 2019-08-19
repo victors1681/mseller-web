@@ -28,7 +28,7 @@ const Main = ({ history, intl }) => {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <>
       <ListItem button onClick={handleClick("/Dashboard")}>
         <ListItemIcon>
           <DashboardIcon />
@@ -82,14 +82,14 @@ const Main = ({ history, intl }) => {
           <ListItemText primary="Users" />
         </ListItem>
       </List>
-    </React.Fragment>
+    </>
   );
 };
 
 export const MainListItems = injectIntl(Main);
 
 export const secondaryListItems = (
-  <React.Fragment>
+  <>
     <ListSubheader inset>Saved reports</ListSubheader>
     <ListItem button>
       <ListItemIcon>
@@ -109,5 +109,5 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
     </ListItem>
-  </React.Fragment>
+  </>
 );

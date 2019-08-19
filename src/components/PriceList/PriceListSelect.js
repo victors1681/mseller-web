@@ -9,7 +9,7 @@ const PrepareDropDownOptions = data =>
   }));
 const PriceListSelect = ({ name, data }) => {
   return (
-    <React.Fragment>
+    <>
       <Field
         required
         id={name}
@@ -22,7 +22,7 @@ const PriceListSelect = ({ name, data }) => {
         autoComplete="off"
         tooltip="Add New Price List"
       />
-    </React.Fragment>
+    </>
   );
 };
 

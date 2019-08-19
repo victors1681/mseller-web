@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import MaterialTable from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
 import Icons from "utils/materialIcons";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import PhoneIcon from "@material-ui/icons/StayCurrentPortrait";
 import DesktopIcon from "@material-ui/icons/DesktopWindows";
 import SyncIcon from "@material-ui/icons/Sync";
@@ -64,11 +65,11 @@ const UserList = ({ data }) => {
   const openEditMode = clientId => setEdit(clientId);
 
   const handleRowClick = (_, rowData) => {
-    openEditMode(rowData["_id"]);
+    openEditMode(rowData._id);
   };
 
   return (
-    <React.Fragment>
+    <>
       <MaterialTable
         title=""
         columns={columns}
@@ -87,7 +88,7 @@ const UserList = ({ data }) => {
           closeModal={closeEditMode}
         />
       )}
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Field } from "formik";
 import { SelectField, PrepareDropDownOptions } from "utils/FormFields";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import CategoryEdit from "./CategoryEdit";
 import { Categories } from "./schema/category.graphql";
 
@@ -17,7 +18,7 @@ const CategorySelect = ({ data, data: { categories } }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       {categoryOpen && <CategoryEdit closeModal={closeEditMode} />}
       <Field
         required
@@ -32,7 +33,7 @@ const CategorySelect = ({ data, data: { categories } }) => {
         tooltip="Add New Category"
         new={handleNew}
       />
-    </React.Fragment>
+    </>
   );
 };
 

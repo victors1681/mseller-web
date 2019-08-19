@@ -1,5 +1,6 @@
 import React from "react";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
@@ -49,7 +50,7 @@ function renderSuggestion(suggestionProps) {
       <ListItemText
         primary={suggestion.name}
         secondary={
-          <React.Fragment>
+          <>
             <Typography
               component="span"
               variant="body2"
@@ -59,7 +60,7 @@ function renderSuggestion(suggestionProps) {
               {suggestion.code}
             </Typography>
             {`  |    ${suggestion.address} | ${suggestion.city}`}
-          </React.Fragment>
+          </>
         }
       />
     </ListItem>

@@ -10,7 +10,8 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import TaxDropDown from "components/Taxes/TaxDropDown";
 import shortId from "shortid";
 import PriceListEdit from "components/PriceList/PriceListEdit";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import { injectIntl } from "react-intl";
 import { PriceList } from "components/PriceList/schema/priceList.graphql";
 
@@ -60,7 +61,7 @@ const PriceMultiField = ({ intl, data, ...props }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       {open && <PriceListEdit closeModal={closeEditMode} />}
 
       <Grid
@@ -178,7 +179,7 @@ const PriceMultiField = ({ intl, data, ...props }) => {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import MaterialTable from "material-table";
 import Icons from "utils/materialIcons";
-import { graphql, compose } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import CLIENT_QUERY from "./schema/clients_short_list.graphql";
 import ClientEdit from "./ClientEdit";
 
@@ -24,7 +25,7 @@ const ClientsList = ({ data }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <MaterialTable
         title="Editable Example"
         columns={columns}
@@ -36,7 +37,7 @@ const ClientsList = ({ data }) => {
         }}
       />
       {edit && <ClientEdit edit={edit} closeModal={closeEditMode} />}
-    </React.Fragment>
+    </>
   );
 };
 

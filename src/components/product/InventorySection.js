@@ -10,10 +10,10 @@ import UnitsSelect from "components/Units/UnitsSelect";
 import Divider from "@material-ui/core/Divider";
 import { Field } from "formik";
 import { TextField } from "utils/FormFields";
-//import { compose, graphql } from "react-apollo";
+// import { compose, graphql } from "react-apollo";
 import { injectIntl } from "react-intl";
 import WarehouseMultiField from "components/Warehouse/WarehouseMultiField";
-//import { Warehouse } from "../Warehouse/schema/warehouse.graphql";
+// import { Warehouse } from "../Warehouse/schema/warehouse.graphql";
 
 const useStyles = makeStyles(theme => ({
   root: {

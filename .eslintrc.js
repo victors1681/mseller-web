@@ -38,6 +38,13 @@ module.exports = {
     "jsx-a11y/anchor-is-valid": "off",
     "react/jsx-wrap-multilines": "off",
     "react/display-name": "off",
-    "react/style-prop-object": "off"
+    "react/style-prop-object": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-curly-newline": "off",
+    "no-nested-ternary": "off",
+    "no-underscore-dangle": "off",
+    "no-param-reassign": "off",
+    "consistent-return": "off",
+    "array-callback-return": "off"
   }
 };

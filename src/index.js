@@ -10,15 +10,10 @@ import Routes from "./routes";
 import theme from "./common/theme/theme";
 import "./common/theme/fontFace.scss";
 import client from "./apolloClient";
-import { addLocaleData, IntlProvider } from "react-intl";
-import en from "react-intl/locale-data/en";
-import es from "react-intl/locale-data/es";
+import { IntlProvider } from "react-intl";
 import { ApolloProvider } from "react-apollo";
 import CurrencyProvider from "components/common/Currency/CurrencyProvider";
 import translation from "./common/i18n/translation";
-
-addLocaleData(en);
-addLocaleData(es);
 
 setConfig({
   reloadHooks: false

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Field } from "formik";
 import { MultiSelect } from "utils/FormFields";
-import { compose, graphql } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import { injectIntl } from "react-intl";
 import TaxEdit from "./TaxEdit";
 import { Taxes } from "./schema/taxes.graphql";
@@ -48,7 +49,7 @@ const TaxDropDown = ({
     return taxArr;
   };
   return (
-    <React.Fragment>
+    <>
       {open && <TaxEdit closeModal={closeEditMode} />}
       <Field
         required
@@ -66,7 +67,7 @@ const TaxDropDown = ({
         tooltip="Add New Tax"
         new={handleNew}
       />
-    </React.Fragment>
+    </>
   );
 };
 

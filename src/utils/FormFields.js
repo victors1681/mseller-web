@@ -113,7 +113,7 @@ export const SelectField = ({
           <Select
             {...field}
             {...props}
-            new={null} //avoid to render on the DOM
+            new={null} // avoid to render on the DOM
             value={field.value || ""}
             onChange={e => {
               setFieldValue(field.name, e.target.value);

@@ -1,5 +1,5 @@
 import React from "react";
-//import Grid from "@material-ui/core/Grid";
+// import Grid from "@material-ui/core/Grid";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Box from "@material-ui/core/Box";
 import ClientSelector from "components/Client/ClientSelector";
@@ -33,7 +33,7 @@ const Document = () => {
   const classes = useStyle();
 
   return (
-    <React.Fragment>
+    <>
       <div className={classes.container}>
         <Box
           component="span"
@@ -54,7 +54,7 @@ const Document = () => {
           block
         </Box>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 export default Document;

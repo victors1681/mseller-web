@@ -15,7 +15,8 @@ import { Form, Formik, Field } from "formik";
 import { TextField } from "utils/FormFields";
 import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
-import { graphql, compose } from "react-apollo";
+import { graphql } from "react-apollo";
+import { flowRight as compose } from "lodash";
 import { gql } from "apollo-boost";
 
 const LoginSchema = Yup.object().shape({
@@ -89,7 +90,7 @@ const SignIn = ({ loginUser, location, history }) => {
   const isAuthenticated = false;
 
   const onHandleSubmit = () => values => {
-    //Perform Login
+    // Perform Login
 
     loginUser({
       variables: values
